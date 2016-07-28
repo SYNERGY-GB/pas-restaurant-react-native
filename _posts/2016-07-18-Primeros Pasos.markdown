@@ -5,25 +5,27 @@ date:   2016-07-18 13:52:50 -0430
 categories: jekyll update
 permalink: /primeros_pasos/
 ---
-El presente proyecto se realizo en un computador Mac para facilitar en desarrollo en ambas plataformas iOS y Android. 
 
  ***1. Ambiente***
  
- React Native en un framework muy ligero y su instalación no tiene complejidad alguna se limita a instalar una librería javascript mas de Node. Se siguió el proceso de instalación de la pagina oficial https://facebook.github.io/react-native/docs/getting-started.html
+ React Native en un framework muy ligero y su instalación se basa en instalar una librería javascript de [Node](https://nodejs.org/en/). Se siguió el proceso de instalación de la página oficial [React-Native Getting Started](https://facebook.github.io/react-native/docs/getting-started.html)
  
- Como editor de Texto se utilizo Sublime.
+Se puede utilizar cualquier editor de texto para el desarrollo de la aplicación.
 
 ***2. Crear una aplicación***
 
-Abriremos la terminal o consola y nos dirigimos al directorio donde queremos crear la aplicación y ejecutamos el siguiente comando:
+Abrimos el terminal o consola y nos dirigimos al directorio donde queremos crear la aplicación y ejecutamos el siguiente comando:
 
+``
   react-native init MyAppName
+
   cd MyAppName
+```
 
  Si nos dirigimos adentro de la carpeta de la aplicación podremos ver la estructura que ha montado el framework
  
 {:refdef: style="text-align: center;"}
-![Archivos_Iniciales](/Images/Archivos_Iniciales.png)
+![Archivos_Iniciales](/pas-restaurant-react-native/Images/Archivos_Iniciales.png)
 {: refdef}
 
  - Android: Contiene la información para compilar y ejecutar en Android.
@@ -42,7 +44,7 @@ Para correr la aplicación en nuestro emulador nos colocamos dentro de la carpet
     react-native run-android
 
 {:refdef: style="text-align: center;"}
-![Archivos_Iniciales](/Images/Primera_Vista.png)
+![Archivos_Iniciales](/pas-restaurant-react-native/Images/Primera_Vista.png)
 {: refdef}
 
 Habilitamos la opción para "Hot Reloading" para editar los archivos y ver los cambios que se producen, nos dirigimos al dispositivo y procedemos a presionar ⌘+D (iOS) o la tecla de Menú del dispositivo (Android).
@@ -65,17 +67,17 @@ import {
   View
 } from 'react-native';
 
-//Declaracion de la clase MyAppName que extiende de Component (React)
+//Declaración de la clase MyAppName que extiende de Component (React)
 class MyAppName extends Component {
 /*
  Segmento para la declaración de funciones 
 */
 
-// Renderizacion del componente
+// Renderización del componente
   render() {
     return (
     // Declaramos el contenedor principal con el elemento View y le pasamos el 
-    // parametro(props) de estilo "style". Es equivalente a la etiqueta <Div> en HTML
+    // parámetro (props)) de estilo "style". Es equivalente a la etiqueta <Div> en HTML
       <View style={styles.container}>
       // Se declaran los elementos para colocar texto Text con el prop de 
       // estilo respectivo.
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  // Definición del estilo de texto "welcome" que mostrata el texto alineado 
+  // Definición del estilo de texto "welcome" que mostrara el texto alineado 
   // en el centro con un margen de 10 y tamaño de letra 20
   welcome: {
     fontSize: 20,
@@ -123,4 +125,4 @@ const styles = StyleSheet.create({
 
 //Indicamos que la aplicación iniciara con el componente MyAppName
 AppRegistry.registerComponent('MyAppName', () => MyAppName);
-``` 
+```
