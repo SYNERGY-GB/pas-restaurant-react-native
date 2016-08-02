@@ -6,23 +6,206 @@ categories: jekyll update
 permalink: /proyecto/
 ---
 
- ***1. Acerca de***
+ ***1. Proposito***
 
- ***2. Estructura*** 
+El siguiente proyecto busca presentar una guía ilustrada que sirva como base de inicio en ReactNative, determinando las características del framework a través de la elaboración de una aplicación móvil personalizada a un sitio de comida rápida para introducir la implementación en ReactNative de componentes generales como el SideMenu, Tabs, ScrollView, Navigator, entre otros. 
+
+La aplicación antes mencionada consta de las siguientes pantallas:
+ 
+ - Pantalla de Lista de Platos
+ - Pantalla de Detalle de Plato
+ - Pantalla de Ubicación (Utilizando el API de Geolocalización)
+ - Pantalla de Contacto
+ - Pantalla de Inicio o ingreso a la aplicación
+  
+***2. Estructura***
+
+`` `` *2.1. Patrón de diseño Model View View-Model (MVVM)*
+
+Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de diseño MVVM ya que ofrece facilidades al utilizar bindings en la vista y al manejar los estados de las pantallas, este consta de las siguientes capas:
+
++ Vista (View): Es la capa principal para la implementación de la presentación de la aplicación.
++ Modelo (Model): Es la capa que representa el dominio de los datos y las reglas de acceso y actualizaciones de estos datos. 
++ Vista-Modelo (View-Model): Son componentes que funcionan como controladores entre las vistas y el modelo que se encargan de implementar el comportamiento de la vista para responder a las acciones del usuario y de exponer los datos del modelo.
+
+<p> </p>
+
+{:refdef: style="text-align: center;"}
+![Patrón de diseño MVVM ilustrado](/pas-restaurant-react-native/Images/MVVM.png)
+{: refdef} 
+
+<br>
+
+`` `` *2.2. Diseño de la aplicación*
+
+Vista del Menú
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_menu.png">
+
+La aplicación contendrá un panel estático principal que tendrá el botón de despliegue del menú, seguido del titulo de la pantalla en la que se encuentre el usuario. 
+<br>
+
+El menú a utilizar será un SideMenu o DrawerMenu que se deslizara de izquierda a derecha en la pantalla mostrando las opciones de navegación. 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla de Lista de Platos	
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_platos.png">
+
+Consta de un navegador por tabs para la selección de las categorías y cargar la lista de platos correspondientes
+<br>
+
+Cada plato será almacenado en un contenedor que mostrara el Nombre, imagen, precio y ranking del platillo. Adicionalmente se colocara un Burger menú como submenú de acciones.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla de  Detalle del Plato
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_detalle.png">
+
+
+Se mostrara una pantalla con el Nombre, imagen, precio, descripción, ranking del plato y un botón al final para retornar a lista de platos. Adicionalmente se colocara un Burger menú como submenú de acciones.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla de Información
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_informacion.png">
+
+Mostrara una imagen donde se puede colocar el logo o publicidad del sitio de comida rápida.
+<br>
+
+Seguido por un Accordion, que mostrara la reseña del lugar y las zonas en donde se dispone un local.
+<br>
+
+Adicionalmente, la sección de ubicaciones tendrá un botón para ir a la pantalla de Ubicación.
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla de Ubicación
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_ubicacion.png">
+
+Utilizando el API de Geolocalización de Google se mostrara en un mapa la ubicación de los locales para que al presionar algunas de las etiquetas de ubicación se cargue la pantalla de "Como llegar".
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla de "Como Llegar"
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_comollegar.png">
+
+Utilizando el API de Geolocalización de Google se mostrara la ruta desde la posición actual del cliente al local seleccionado. Adicionalmente se mostrara la dirección del local en texto plano y la información de contacto.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla de Contacto
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_contacto.png">
+
+Tendrá un contenedor fijo que mostrara la información de contacto de la sede principal, nombre del gerente, teléfono fijo y móvil, junto a un botón para poder contactar con el gerente.
+<br>
+
+Seguido por un ComboBox que contendrá las zonas donde hay locales y al seleccionar una se cargara el contenedor de contacto con la información respectiva.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla para Contactar
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_contactar.png">
+
+Se mostrara un formulario donde el usuario introducirá su correo electrónico, el cuerpo del mensaje a enviar y dos botones para finalizar el envío o regresar a la pantalla anterior.
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla de Inicio					
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_inicio.png">
+
+Se mostrara el logo del sitio de comida hasta que finalice la carga y renderización de la pantalla principal de la aplicación, Pantalla de lista de platos.
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
  ***3. Implementación del Proyecto***
 
-	3.1. Desarrollo de la vista del Menú
-	
-	3.2. Desarrollo de la Pantalla de Lista de Platos
-	 
-	3.3. Desarrollo de la Pantalla de  Detalle del Plato
-	 
-	3.4. Desarrollo de la Pantalla de Ubicación (Utilizando API de Geolocalización)
-	 
-	3.5. Desarrollo de la Pantalla de Contacto
+`` `` *3.1. Desarrollo del Menú*
 
-	3.6. Desarrollo de la Pantalla de Inicio
+`` `` *3.2. Desarrollo de la Pantalla de Lista de Platos*
+	 
+`` `` *3.3. Desarrollo de la Pantalla de  Detalle del Plato*
+	 
+`` `` *3.4. Desarrollo de la Pantalla de Ubicación (Utilizando API de Geolocalización)*
+	 
+`` `` *3.5. Desarrollo de la Pantalla de Contacto*
+
+`` `` *3.6. Desarrollo de la Pantalla de Inicio*
 	  
-	3.7. Instalación en el dispositivo
+`` `` *3.7. Instalación en el dispositivo*
 	 

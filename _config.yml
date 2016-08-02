@@ -13,7 +13,7 @@ description: > # this means to ignore newlines until "baseurl:"
   ilustrando la elaboración de una aplicación para familiarizar a los desarrolladores
   con el framework.
 baseurl: "/pas-restaurant-react-native" # the subpath of your site, e.g. /blog
-url: "http://blog.synergy-gb.com" # the base hostname & protocol for your site
+url: "http://blog.synergy-gb.com/pas-restaurant-react-native" # the base hostname & protocol for your site
 twitter_username: 
 github_username:  eppisapia
 
