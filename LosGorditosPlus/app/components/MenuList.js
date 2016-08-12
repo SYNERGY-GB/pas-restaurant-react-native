@@ -26,10 +26,10 @@ class MenuList extends Component {
 
   changeView(value, data) {
     if (value === 0) {
-      Actions.pageTwo({text: data.price})
+      Actions.MenuDetail({plato: data})
     }
     else {
-      Actions.pageTwo({text: data.title})
+      Actions.MenuDetail({plato: data})
     }
   }
 

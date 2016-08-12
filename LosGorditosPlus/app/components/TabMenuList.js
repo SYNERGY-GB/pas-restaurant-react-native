@@ -10,20 +10,20 @@ import styles from './styles/TabStyle';
 import MenuList from './MenuList';
 import { Actions } from 'react-native-router-flux';
 
-var fake_data0 =[{title: 'Pizza con peperoni', price: "4.700 Bsf", img:require('./resources/recursos-48.png')},
-                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png')},
+var fake_data0 =[{title: 'Pizza con peperoni', price: "4.700 Bsf", img:require('./resources/recursos-48.png'), descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
+                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png'), descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
                 ]
-var fake_data1 =[{title: 'Principal', price: "4.700 Bsf", img:require('./resources/recursos-48.png')},
-                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png')},
+var fake_data1 =[{title: 'Principal', price: "4.700 Bsf", img:require('./resources/recursos-48.png'),descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
+                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png'),descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
                 ]
-var fake_data2 =[{title: 'Ensaladas', price: "4.700 Bsf", img:require('./resources/recursos-48.png')},
-                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png')},
+var fake_data2 =[{title: 'Ensaladas', price: "4.700 Bsf", img:require('./resources/recursos-48.png'), descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
+                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png'),descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
                 ]
-var fake_data3 =[{title: 'Postres', price: "4.700 Bsf", img:require('./resources/recursos-48.png')},
-                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png')},
+var fake_data3 =[{title: 'Postres', price: "4.700 Bsf", img:require('./resources/recursos-48.png'), descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
+                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png'), descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
                 ]
-var fake_data4 =[{title: 'Bebidas', price: "4.700 Bsf", img:require('./resources/recursos-48.png')},
-                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png')},
+var fake_data4 =[{title: 'Bebidas', price: "4.700 Bsf", img:require('./resources/recursos-48.png'), descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
+                {title: 'Pasta a la Caprese', price: "2.300 Bsf", img:require('./resources/recursos-49.png'), descripcion: 'Ingredientes: 1 base para pizza. 100 gr. de pepperoni. 100 gr. de salami. 1 lata de tomate triturado. 100 gr. de queso parmesano rallado. 150 gr. de queso.'},
                 ]
 
 class TabMenuList extends Component {

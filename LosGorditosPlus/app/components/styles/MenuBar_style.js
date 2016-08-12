@@ -24,8 +24,8 @@ module.exports = StyleSheet.create({
   menu_icon: {
     padding: 10,
     paddingLeft: 5,
-    width: W_width*0.08, 
-    height: W_height*0.06,
+    width: W_width*0.08,
+    height: W_height*0.04,
   },
   container_title: {
     flexDirection: 'row',
