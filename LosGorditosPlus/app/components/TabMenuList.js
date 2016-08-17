@@ -109,7 +109,7 @@ class TabMenuList extends Component {
                             <View />
                             <MenuList selectedTab={this.props.selectedTab} fake_data={fake_data2}/>
                           </View>;
-          case 3: return <Image><MenuList selectedTab={this.props.selectedTab} fake_data={fake_data3}/></Image>;
+          case 3: return <View><Text style={{height: 1}}/><MenuList selectedTab={this.props.selectedTab} fake_data={fake_data3}/></View>;
           case 4: return <View><MenuList selectedTab={this.props.selectedTab} fake_data={fake_data4}/></View>;
           default: return <MenuList selectedTab={this.props.selectedTab} fake_data={fake_data0}/>;
         }

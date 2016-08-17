@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import MenuBar from './app/components/MenuBar';
 import MenuDetail from './app/components/MenuDetail';
+import LocationDetail from './app/components/LocationDetail';
 
 export default class LosGorditosPlus extends Component {
   render() {
@@ -19,6 +20,7 @@ export default class LosGorditosPlus extends Component {
         <Scene key="root" hideNavBar>
           <Scene key="MenuBar" component={MenuBar} initial={true} />
           <Scene key="MenuDetail" component={MenuDetail} />
+          <Scene key="LocationDetail" component={LocationDetail} />
         </Scene>
       </Router>
     )

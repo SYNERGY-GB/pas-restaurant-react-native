@@ -44,11 +44,11 @@ module.exports = StyleSheet.create({
   },
   containerMenu: {
     flex: 1,
-    width: W_width*0.975,
-    margin:4
+    width: W_width*0.95,
+    margin:9
   },
   img:{
-    width: W_width*0.975, 
+    width: W_width*0.95, 
     height: W_height*0.30,
   },
   rowStyle: {
@@ -65,7 +65,7 @@ module.exports = StyleSheet.create({
     width: W_width*0.055, 
     height: W_height*0.03,
     position: 'absolute',
-    right: 3,
+    right: 12,
   },
   img_share: {
     width: W_width*0.13, 

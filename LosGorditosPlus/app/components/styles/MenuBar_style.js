@@ -84,8 +84,9 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
   },
   menu_logo: {
-    width: W_width*0.65, 
-    height: W_height*0.12,
+    width: W_width*0.55, 
+    height: W_height*0.098,
+    margin: 15,
     position: 'absolute',
     bottom: 25
   }

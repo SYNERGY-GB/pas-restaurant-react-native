@@ -8,10 +8,10 @@ import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 import {
   AppRegistry
-
 } from 'react-native';
 import MenuBar from './app/components/MenuBar';
-import PageTwo from './PageTwo';
+import MenuDetail from './app/components/MenuDetail';
+import LocationDetail from './app/components/LocationDetail';
 
 export default class LosGorditosPlus extends Component {
   render() {
@@ -19,7 +19,8 @@ export default class LosGorditosPlus extends Component {
       <Router>
         <Scene key="root" hideNavBar>
           <Scene key="MenuBar" component={MenuBar} initial={true} />
-          <Scene key="pageTwo" component={PageTwo} title="PageTwo" />
+          <Scene key="MenuDetail" component={MenuDetail} />
+          <Scene key="LocationDetail" component={LocationDetail} />
         </Scene>
       </Router>
     )

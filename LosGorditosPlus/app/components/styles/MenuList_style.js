@@ -11,7 +11,7 @@ module.exports = StyleSheet.create({
   containerMenu: {
     flex: 1,
     width: W_width, 
-    marginTop: 1,
+    marginTop: 4,
   },
   img:{
     width: W_width, 

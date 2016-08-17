@@ -9,6 +9,7 @@ import {
 import TabMenuList from './TabMenuList';
 import MenuView from './MenuView';
 import Location from './Location';
+import About from './About';
 import Drawer from 'react-native-drawer';
 import styles from './styles/MenuBar_style';
 import { Actions } from 'react-native-router-flux';
@@ -31,7 +32,7 @@ class MenuBar extends Component {
 
   render() {
     var bg = this.props.bg ? require('./resources/6_BG/bg2.png') : require('./resources/6_BG/bg.png');
-    var title_style = this.props.ts ? styles.container_title : styles.container_title_b
+    var title_style = this.props.ts ? styles.container_title : styles.container_title_b 
     return (
       <Image style={styles.bg} source={bg} >
         <Drawer
@@ -116,9 +117,9 @@ class MenuBar extends Component {
             {(() => {
               switch (this.props.selected_page) {
                 case 0: return <MenuView />;
-                case 1: return <Text>Pantalla de Informacion</Text>;
+                case 1: return <About />;
                 case 2: return <Text>Pantalla de Contacto</Text>;
-                case 3: return <Text>Pantalla de Ubicacion</Text>;
+                case 3: return <Location />;
                 case 4: return <TabMenuList selectedTab={ this.props.selectedTab } />
                 default: return <MenuView/>;
               }
