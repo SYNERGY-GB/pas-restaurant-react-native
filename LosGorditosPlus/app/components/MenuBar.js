@@ -10,6 +10,7 @@ import TabMenuList from './TabMenuList';
 import MenuView from './MenuView';
 import Location from './Location';
 import About from './About';
+import Contact from './Contact';
 import Drawer from 'react-native-drawer';
 import styles from './styles/MenuBar_style';
 import { Actions } from 'react-native-router-flux';
@@ -57,7 +58,7 @@ class MenuBar extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.button} onPress={()=>{
-                Actions.refresh({page_title: 'Información', bg: true, ts: true, selected_page: 1}) ;
+                Actions.refresh({page_title: 'información', bg: true, ts: true, selected_page: 1}) ;
                 this._drawer.close()
                 }}>
                 <View style={styles.button_align}>
@@ -67,7 +68,7 @@ class MenuBar extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.button} onPress={()=>{
-                Actions.refresh({page_title: 'Contacto', bg: true, ts: true, selected_page: 2}) ;
+                Actions.refresh({page_title: 'contacto', bg: true, ts: true, selected_page: 2}) ;
                 this._drawer.close()
                 }}>
                 <View style={styles.button_align}>
@@ -77,7 +78,7 @@ class MenuBar extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.button} onPress={()=>{
-                Actions.refresh({page_title: 'Ubicaciones', bg: true, ts: true, selected_page: 3}) ;
+                Actions.refresh({page_title: 'ubicaciones', bg: true, ts: true, selected_page: 3}) ;
                 this._drawer.close()
                 }}>
                   <View style={styles.button_align}>
@@ -118,7 +119,7 @@ class MenuBar extends Component {
               switch (this.props.selected_page) {
                 case 0: return <MenuView />;
                 case 1: return <About />;
-                case 2: return <Text>Pantalla de Contacto</Text>;
+                case 2: return <Contact />;
                 case 3: return <Location />;
                 case 4: return <TabMenuList selectedTab={ this.props.selectedTab } />
                 default: return <MenuView/>;

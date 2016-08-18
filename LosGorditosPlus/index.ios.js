@@ -12,6 +12,7 @@ import {
 import MenuBar from './app/components/MenuBar';
 import MenuDetail from './app/components/MenuDetail';
 import LocationDetail from './app/components/LocationDetail';
+import ContactForm from './app/components/ContactForm';
 
 export default class LosGorditosPlus extends Component {
   render() {
@@ -21,6 +22,7 @@ export default class LosGorditosPlus extends Component {
           <Scene key="MenuBar" component={MenuBar} initial={true} />
           <Scene key="MenuDetail" component={MenuDetail} />
           <Scene key="LocationDetail" component={LocationDetail} />
+          <Scene key="ContactForm" component={ContactForm} />
         </Scene>
       </Router>
     )
