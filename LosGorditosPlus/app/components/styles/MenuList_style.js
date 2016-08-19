@@ -8,6 +8,10 @@ const W_height = Dimensions.get('window').height;
 const W_width = Dimensions.get('window').width;
 
 module.exports = StyleSheet.create({
+  container: {
+    height: W_height,
+    width: W_width, 
+  },
   containerMenu: {
     flex: 1,
     width: W_width, 

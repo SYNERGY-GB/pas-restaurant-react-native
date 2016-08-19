@@ -71,6 +71,13 @@ module.exports = StyleSheet.create({
     width: W_width*0.06, 
     height: W_height*0.06,
   },
+  img_buttom_4: {
+    width: W_width*0.03, 
+    height: W_height*0.02,
+    position: 'absolute',
+    right: 0,
+    marginTop: 13,
+  },
   menu_title: {
     fontSize: 19,
     marginLeft: 5,
@@ -79,9 +86,9 @@ module.exports = StyleSheet.create({
   },
   button_align: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+
   },
   menu_logo: {
     width: W_width*0.55, 
