@@ -31,3 +31,8 @@ Es un framework de desarrollo móvil nativo (iOS, Android) elaborado por Faceboo
 	 - Flexbox: Es una variable de estilo que permite indicar el espacio que va a ocupar un componente según el espacio disponible en la vista.
 <p></p>
  - *Funcionamiento del Virtual DOM:* React genera una copia del DOM en memoria (Virtual DOM) para generar los cambios en este y comparar las propiedades de la copia en memoria con las del DOM y así aplicar los cambios exclusivamente en las partes que difieren de esta manera en vez de renderizar todo el DOM en cada cambio solo renderiza las secciones que sufrieron algún cambio permitiendo a la aplicación mantener un alto desempeño al manejar una gran cantidad de información.
+
+ - *Flux:* Es la librería que propone Facebook para implementar la navegación por un enrutamiento de escenas. Las principales acciones son:
+	- Actions.Refresh(<PARAMS>): Refresca la escena actual y en caso de pasar parametros actualiza los props.
+	- Actions.Pop(): Deshace la ultima accion flux.
+	- Actions.<Key_Route>(<PARAMS>): Invoca la escena respectiva a la llave (definida en el enrutamiento) y la sobrepone a la escena actual.

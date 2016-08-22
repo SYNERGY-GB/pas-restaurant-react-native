@@ -6,17 +6,21 @@ categories: jekyll update
 permalink: /proyecto/
 ---
 
- ***1. Proposito***
+ ***1. Propósito***
 
 El siguiente proyecto busca presentar una guía ilustrada que sirva como base de inicio en ReactNative, determinando las características del framework a través de la elaboración de una aplicación móvil personalizada a un sitio de comida rápida para introducir la implementación en ReactNative de componentes generales como el SideMenu, Tabs, ScrollView, Navigator, entre otros. 
 
 La aplicación antes mencionada consta de las siguientes pantallas:
  
- - Pantalla de Lista de Platos
- - Pantalla de Detalle de Plato
+ - Pantalla de presentación de categorías
+ - Pantalla de Lista de platos
+ - Pantalla de Detalle del Plato
  - Pantalla de Ubicación (Utilizando el API de Geolocalización)
+ - Pantalla de Detalle de Ubicación
  - Pantalla de Contacto
- - Pantalla de Inicio o ingreso a la aplicación
+ - Pantalla para Contactar
+ - Pantalla de Información
+ - Splash para el inicio de la aplicación
   
 ***2. Estructura***
 
@@ -41,7 +45,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
 Vista del Menú
 
 <img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_menu.png">
-
+<br>
 La aplicación contendrá un panel estático principal que tendrá el botón de despliegue del menú, seguido del titulo de la pantalla en la que se encuentre el usuario. 
 <br>
 
@@ -54,12 +58,44 @@ El menú a utilizar será un SideMenu o DrawerMenu que se deslizara de izquierda
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Pantalla de Presentación de Categorías
+
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_categorias.png">
+<br>
+Será la pagina principal de la aplicación correspondiente al Menú, tendrá una imagen de fondo con 5 botones que representen las categorías del restaurante. 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 Pantalla de Lista de Platos	
 
 <img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_platos.png">
-
-Consta de un navegador por tabs para la selección de las categorías y cargar la lista de platos correspondientes
+<br>
+Consta de un navegador por tabs para la selección de las categorías y un ListView para mostrar la lista de platos.
 <br>
 
 Cada plato será almacenado en un contenedor que mostrara el Nombre, imagen, precio y ranking del platillo. Adicionalmente se colocara un Burger menú como submenú de acciones.
@@ -71,14 +107,27 @@ Cada plato será almacenado en un contenedor que mostrara el Nombre, imagen, pre
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-Pantalla de  Detalle del Plato
+Pantalla de Detalle del Plato
 
-<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_detalle.png">
+<img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_detalle_p.png">
+<br>
+En esta vista, se deshabilitara el menú general y se cambiara el header por uno que contenga un botón de retorno y el titulo de la pagina.
+<br>
+Se mostrara una pantalla con el Nombre, imagen, precio, descripción, ranking del plato y tres botones que permitan al usuario realizar acciones.
 
-
-Se mostrara una pantalla con el Nombre, imagen, precio, descripción, ranking del plato y un botón al final para retornar a lista de platos. Adicionalmente se colocara un Burger menú como submenú de acciones.
-
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -92,14 +141,20 @@ Se mostrara una pantalla con el Nombre, imagen, precio, descripción, ranking de
 Pantalla de Información
 
 <img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_informacion.png">
-
+<br>
 Mostrara una imagen donde se puede colocar el logo o publicidad del sitio de comida rápida.
 <br>
-
-Seguido por un Accordion, que mostrara la reseña del lugar y las zonas en donde se dispone un local.
+Seguido por un acordeón, que contendrá la reseña del lugar y las zonas en donde se dispone un local.
 <br>
+Se elaborara un contenedor que mostrara el nombre de la zona, hora de cierre y un botón para acceder a la ubicación del local respectivo.
 
-Adicionalmente, la sección de ubicaciones tendrá un botón para ir a la pantalla de Ubicación.
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -111,26 +166,41 @@ Adicionalmente, la sección de ubicaciones tendrá un botón para ir a la pantal
 Pantalla de Ubicación
 
 <img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_ubicacion.png">
+<br>
+Consta de un mapa que abarca la pantalla en el cual se marcaran las sedes y se mostrara un mensaje para guiar al usuario en su siguiente acción.
 
-Utilizando el API de Geolocalización de Google se mostrara en un mapa la ubicación de los locales para que al presionar algunas de las etiquetas de ubicación se cargue la pantalla de "Como llegar".
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-Pantalla de "Como Llegar"
+Pantalla de Detalle de Ubicación
 
 <img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_comollegar.png">
+<br>
+En esta vista, se deshabilitara el menú general y se cambiara el header por uno que contenga un general de retorno y el titulo de la pagina.
+<br>
+Contendrá un pequeño mapa que marque la ubicación seguido de la dirección y contacto del local.
 
-Utilizando el API de Geolocalización de Google se mostrara la ruta desde la posición actual del cliente al local seleccionado. Adicionalmente se mostrara la dirección del local en texto plano y la información de contacto.
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -144,12 +214,19 @@ Utilizando el API de Geolocalización de Google se mostrara la ruta desde la pos
 Pantalla de Contacto
 
 <img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_contacto.png">
-
+<br>
 Tendrá un contenedor fijo que mostrara la información de contacto de la sede principal, nombre del gerente, teléfono fijo y móvil, junto a un botón para poder contactar con el gerente.
 <br>
-
 Seguido por un ComboBox que contendrá las zonas donde hay locales y al seleccionar una se cargara el contenedor de contacto con la información respectiva.
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -160,8 +237,16 @@ Seguido por un ComboBox que contendrá las zonas donde hay locales y al seleccio
 Pantalla para Contactar
 
 <img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_contactar.png">
+<br>
+En esta vista, se deshabilitara el menú general y se cambiara el header por uno que contenga un dirección de retorno y el titulo de la pagina.
+<br>
+Se mostrara un formulario donde el usuario introducirá su nombre, correo electrónico y el cuerpo del mensaje a enviar.
 
-Se mostrara un formulario donde el usuario introducirá su correo electrónico, el cuerpo del mensaje a enviar y dos botones para finalizar el envío o regresar a la pantalla anterior.
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -174,38 +259,397 @@ Se mostrara un formulario donde el usuario introducirá su correo electrónico, 
 <br>
 <br>
 
-Pantalla de Inicio					
+Splash para el inicio de la aplicación					
 
 <img style="float: left; margin: 5px;" src="/pas-restaurant-react-native/Images/Pantalla_inicio.png">
-
+<br>
 Se mostrara el logo del sitio de comida hasta que finalice la carga y renderización de la pantalla principal de la aplicación, Pantalla de lista de platos.
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
  ***3. Implementación del Proyecto***
 
-`` `` *3.1. Desarrollo del Menú*
+A continuacion se presentara el desarrollo de las vistas anteriormente mostradas denotando las librerias utilizadas y su uso.
 
-`` `` *3.2. Desarrollo de la Pantalla de Lista de Platos*
-	 
-`` `` *3.3. Desarrollo de la Pantalla de  Detalle del Plato*
-	 
-`` `` *3.4. Desarrollo de la Pantalla de Ubicación (Utilizando API de Geolocalización)*
-	 
-`` `` *3.5. Desarrollo de la Pantalla de Contacto*
+Puntos a considerar:
 
-`` `` *3.6. Desarrollo de la Pantalla de Inicio*
+- Se explicara el uso de los componentes y, en algunos casos, los props que recibe.
+- Como el objetivo es aprender a utilizar el framework se implementaran los componentes y funcionalidades de varias maneras denotando sus ventajas.
+- Instalacion de las librerias NPM que se utilizaran.
+- Se trabajara con variables que contengan la informacion de la aplicacion, es decir, no se desarrollara el Modelo.
+- El diseno de la aplicacion esta disponible en el repositorio git por lo que no sera explicado.
+
+
+
+*Pueden descargar la app del repositorio:* [Synergy-GB React Native](https://github.com/SYNERGY-GB/pas-restaurant-react-native) 
+
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.1. Inicio e Implementacion de la navegacion Flux</Text><br>*
+
+Comenzamos creando la aplicacion que se llamara LosGorditosPlus
+
+``
+  react-native init LosGorditosPlus
+
+```
+
+Utilizaremos la estructura que otorga Facebook en sus ejemplos de ReactNative, tendremos una carpeta app que contenga los componentes de la aplicacion con sus respectivos estilos y recursos.
+
+``
+  cd LosGorditosPlus
+  mkdir app
+  mkdir app/components
+  mkdir app/components/resources
+  mkdir app/components/styles
+```
+
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.2. Desarrollo del Menú </Text><br>*
+
+Se quiere tener un menu que se despliege del lado izquierdo de la aplicacion por lo que instalaremos la librera [react-native-drawer](https://github.com/root-two/react-native-drawer).
+
+``
+  npm install --save react-native-drawer
+``
+
+Creamos los archivos a los cuales se accederan desde el menu
+
+```
+# Vista del Menu
+
+  touch app/components/MenuBar.js
+
+
+# Pantalla de Presentacion de Categorias
+
+  touch app/components/MenuView.js
+
+
+# Pantalla de Lista de Platos
+
+  touch app/components/TabMenuList.js
+
+
+# Pantalla de Informacion
+
+  touch app/components/About.js
+
+# Pantalla de Ubicacion
+
+  touch app/components/Location.js
+
+```
+
+Podemos colocar en cada uno de estos archivos un pequeno codigo que nos permita visualizar el cambio de la pantalla
+
+```
+class <Nombre_Clase> extend Component {
+	render (){
+	return (
+		<Text>Nombre del archivo</Text>
+	);
+	}
+}
+
+module.exports= <Nombre_Clase>
+```
+
+
+Empezamos la implementacion del menu necesitamos importar la libreria instalada y cada uno de los componentes (pantallas) que seran llamados.
+
+```
+import TabMenuList from './TabMenuList';
+import MenuView from './MenuView';
+import Location from './Location';
+import About from './About';
+import Contact from './Contact';
+import Drawer from 'react-native-drawer';
+import styles from './styles/MenuBar_style';
+
+class Menubar extend Component {
+	render (){
+	return (
+		<Text>Nombre del archivo</Text>
+	);
+	}
+}
+
+module.exports= <Nombre_Clase>
+```
+
+
+Usaremos el elemento Image como contenedor debido a que se tienen muchas images de fondos.
+
+Drawer: Este componente consta de 2 partes, el contenido que va dentro de las etiquetas es lo que se muestra en la pantalla, mientras que el componente declarado en la propiedad "content" se muestra en el drawer. Requiere la declaracion de los estados Open y Disabled para el control de este y de las funciones para abrirlo y cerrarlo. Entre sus props tenemos:
+
+- type: Puede tomar dos valores, "static" el Drawer se pinta en la pantalla deslizando el contenido de esta hacia la derecha. Y "overlay", se pinta encima del contenido de la pantalla.
+- content: Aqui se declara el contenido que se mostrara en el drawer.
+- onOpen: Funcion a realizar en la apertura del Drawer,
+- onClose: Funcion a raelizar al cerrar el Drawer.
+
+
+Desglozaremos el contenido del Drawer en un archivo llamado DrawerContent para que el codigo sea mas legible y veamos como comunicar al componente padre con el hijo.
+
+Creamos en la carpeta components el archivo DrawerContent.js y lo importamos en MenuBar.
+
+```
+touch app/components/DrawerContent.js
+
+```
+
+El DrawerContent interactua con un elemento que le pertene al componente que lo invoca (Padre), ¿Como se comunican los componentes?, el padre requiere pasar funciones que manipulen sus elementos al hijo. Para que el DrawerContent acepte una funcion como props se necesita importar los "PropTypes" de React y definirlos como funciones. En este caso, el props que recibe la funcion se llamara "onClose".
+
+Como vimos en el diseño el drawer consta de 5 botones (Opciones de Navegacion y el boton del menu) junto a un indicador que se posiciona en la pagina actual para lo cual se le asignara un valor a cada Opcion de Navegacion, sera pasado por el padre bajo el nombre de "selected_page", asi podremos saber donde pintar el indicador. Tambien, implementaremos la libreria Flux para que al seleccionar una opcion mandemos a refrescar el contexto utilizando la accion "Actions.refresh(PARAM)", donde pasaremos como parametros:
+
+- page_title: Titulo a mostrar en la bara de navegacion.
+- bg: Variable de control del fondo.
+- ts: Variable de control del estilo de la bara de navegacion.
+- selected_page: Pagina seleccionada.
+
+Mas adelante se explicara que hace la accion flux refresh
+
+```
+#DrawerContent
+
+'use strict';
+import React, {PropTypes, Component } from 'react';
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  Image
+} from 'react-native';
+import styles from './styles/MenuBar_style';
+import { Actions } from 'react-native-router-flux';
+
+class DrawerContent extends Component {
+	 static propTypes = {
+    onClose: PropTypes.func,
+  };
+  render (){
+		return(
+			<Image style={styles.containerMenu} source={require('./resources/menu.png')}>
+              <TouchableOpacity style={styles.menu_icon} onPress={()=>{
+                this.props.onClose()
+              }}>
+                <Image style={styles.menu_icon} source={require('./resources/1_Icons/recursos-01.png')} />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.first_button} onPress={()=>{
+                Actions.refresh({page_title: null, bg: false, ts: false, selected_page: 0}) ;
+                this.props.onClose()
+              }}>
+                <View style={styles.button_align}>
+                  <Image style={styles.img_buttom} source={require('./resources/1_Icons/recursos-02.png')} />
+                  <Text style={styles.menu_title}> menu </Text>
+                  {this.props.selected_page === 0 ? 
+                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
+                    : 
+                    this.props.selected_page === 4 ? 
+                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
+                    : 
+                    <Text/>}
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button} onPress={()=>{
+                Actions.refresh({page_title: 'información', bg: true, ts: true, selected_page: 1}) ;
+                this.props.onClose()
+                }}>
+                <View style={styles.button_align}>
+                  <Image style={styles.img_buttom} source={require('./resources/1_Icons/recursos-03.png')} />
+                  <Text style={styles.menu_title}> información </Text>
+                  {this.props.selected_page ===1 ? 
+                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
+                    : 
+                    <Text/>}
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button} onPress={()=>{
+                Actions.refresh({page_title: 'contacto', bg: true, ts: true, selected_page: 2}) ;
+                this.props.onClose()
+                }}>
+                <View style={styles.button_align}>
+                  <Image style={styles.img_buttom_2} source={require('./resources/1_Icons/recursos-04.png')} />
+                  <Text style={styles.menu_title}> contactar </Text>
+                  {this.props.selected_page ===2 ? 
+                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
+                    : 
+                    <Text/>}
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button} onPress={()=>{
+                Actions.refresh({page_title: 'ubicaciones', bg: true, ts: true, selected_page: 3}) ;
+                this.props.onClose()
+                }}>
+                  <View style={styles.button_align}>
+                    <Image style={styles.img_buttom_3} source={require('./resources/1_Icons/recursos-05.png')} />
+                    <Text style={styles.menu_title}> ubicaciones </Text>
+                    {this.props.selected_page ===3 ? 
+                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
+                    : 
+                    <Text/>}
+                  </View>
+              </TouchableOpacity>
+              <Image style={styles.menu_logo}source={require('./resources/3_Logos/menu_logo.png')}/>
+            </Image>
+		);
+	}
+}
+
+module.exports = DrawerContent;
+
+```
+
+Regresando al MenuBar, importamos el contenido del Drawer
+
+```
+import DrawerContent from './DrawerContent';
+```
+
+Primero haremos nuestra propia bara de Navegacion que tendra el boton para acceder al menu de la aplicacion (Drawer) y el titulo de la pagina en el cual se mostrar el valor del prop "page_title", despues, colocaremos el contenido de la pagina que deseamos mostrar.
+
+No utilizaremos Flux para la navegacion de las paginas principales de la aplicacion sino que lo haremos por medio de un switch que evalue el props "selected_page" y renderice en base a su valor ya que esto nos permite que se sustituya el componente que se muestra en pantalla en lugar de sobreponer una escena.
+
+```
+#Vista del Menu
+
+'use strict';
+import React, { Component } from 'react';
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  Image
+} from 'react-native';
+import TabMenuList from './TabMenuList';
+import MenuView from './MenuView';
+import Location from './Location';
+import About from './About';
+import Contact from './Contact';
+import DrawerContent from './DrawerContent';
+import Drawer from 'react-native-drawer';
+import styles from './styles/MenuBar_style';
+
+class MenuBar extends Component {
+
+ constructor(props){
+    super(props);
+    this.state={
+      drawerOpen: false,
+      drawerDisabled: false,
+    }
+  }
+
+  # Funcion para cerrar el drawer Menu
+  closeDrawer = () => {
+    this._drawer.close()
+  }
+
+  # Funcion para abrir el drawer menu
+  openDrawer = () => {
+    this._drawer.open()
+  }
+
+  render() {
+    var bg = this.props.bg ? require('./resources/6_BG/bg2.png') : require('./resources/6_BG/bg.png');
+    var title_style = this.props.ts ? styles.container_title : styles.container_title_b 
+    return (
+      <Image style={styles.bg} source={bg} >
+        <Drawer
+          ref={(ref) => this._drawer = ref}
+          type="overlay"
+          content={
+            <DrawerContent onClose={this.closeDrawer} />
+          }
+          acceptDoubleTap
+          onOpen={() => {
+            this.setState({drawerOpen: true})
+          }}
+          onClose={() => {
+            this.setState({drawerOpen: false})
+          }}
+          captureGestures={false}
+          tweenDuration={200}
+          panThreshold={0.50}
+          disabled={this.state.drawerDisabled}
+          openDrawerOffset={(viewport) => {
+            return 100
+          }}
+          closedDrawerOffset={() => 0}
+          panOpenMask={0.2}
+          negotiatePan
+          >
+
+            <View style={title_style} >
+                <TouchableOpacity style={styles.menu_icon} onPress={()=>{
+                  this._drawer.open()
+                }}>
+                  <Image style={styles.menu_icon} source={require('./resources/1_Icons/recursos-01.png')} />
+                </TouchableOpacity>
+                <Text style={styles.page_title}> {this.props.page_title} </Text>       
+            </View>
+
+
+            { () => {
+              switch (this.props.selected_page) {
+                case 0: return <MenuView />;
+                case 1: return <About />;
+                case 2: return <Contact />;
+                case 3: return <Location/>;
+                case 4: return <TabMenuList />
+                default: return <MenuView />;
+              }
+            })()}
+        </Drawer>
+      </Image>
+    );
+  }
+}
+```
+
+Con esto ya tenemos nuestro componente principal MenuBar, el cual se encarga de mostrar el menu de navegacion de la aplicacion y renderizar las pantallas, como es el componente padre al refrescar con la accion Flux se actualizara y volvera a evaluar sus props cambiando el titulo de la pagina o renderizando una nueva pantalla. Inconveniente, es el unico componente al cual podemos actualizar sus props con el refresh.
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.3. Desarrollo de la Pantalla de Presentación de Categorías</Text><br>*
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.4. Desarrollo de la Pantalla de Lista de Platos</Text><br>*
+	 
+*<Text style="text-decoration: underline; margin: 15px;"> 3.5. Desarrollo de la Pantalla de Detalle del Plato</Text><br>*
+	 
+*<Text style="text-decoration: underline; margin: 15px;"> 3.6. Desarrollo de la Pantalla de Información</Text><br>*
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.7. Desarrollo de la Pantalla de Ubicación</Text><br>*
 	  
-`` `` *3.7. Instalación en el dispositivo*
+*<Text style="text-decoration: underline; margin: 15px;"> 3.8. Desarrollo de la Pantalla de Detalle de Ubicación</Text><br>*
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.9. Desarrollo de la Pantalla de Contacto</Text><br>*
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.10. Desarrollo de la Pantalla para Contactar</Text><br>*
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.11. Desarrollo del Splash para el inicio de la aplicación</Text><br>*
+
+*<Text style="text-decoration: underline; margin: 15px;"> 3.12. Instalación en el dispositivo</Text><br>*
+	 
+
+	  
+
 	 
