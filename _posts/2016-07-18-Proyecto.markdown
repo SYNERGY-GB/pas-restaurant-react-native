@@ -286,33 +286,37 @@ Se mostrara el logo del sitio de comida hasta que finalice la carga y renderizac
 
  ***3. Implementación del Proyecto***
 
-A continuacion se presentara el desarrollo de las vistas anteriormente mostradas denotando las librerias utilizadas y su uso.
+A continuación se presentara el desarrollo de las vistas anteriormente mostradas denotando las librerías utilizadas y su uso.
 
 Puntos a considerar:
 
 - Se explicara el uso de los componentes y, en algunos casos, los props que recibe.
 - Como el objetivo es aprender a utilizar el framework se implementaran los componentes y funcionalidades de varias maneras denotando sus ventajas.
-- Instalacion de las librerias NPM que se utilizaran.
-- Se trabajara con variables que contengan la informacion de la aplicacion, es decir, no se desarrollara el Modelo.
-- El diseno de la aplicacion esta disponible en el repositorio git por lo que no sera explicado.
+- Instalación de las librerías NPM que se utilizaran.
+- Se trabajara con variables que contengan la información de la aplicación, es decir, no se desarrollara el Modelo.
+- El diseño de la aplicación esta disponible en el repositorio git por lo que no será explicado.
 
 
 
 *Pueden descargar la app del repositorio:* [Synergy-GB React Native](https://github.com/SYNERGY-GB/pas-restaurant-react-native) 
 
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.1. Inicio e Implementación de la librería Flux</Text>*
+<br>
+<br>
 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.1. Inicio e Implementacion de la navegacion Flux</Text><br>*
+Comenzamos creando la aplicación que se llamara LosGorditosPlus
 
-Comenzamos creando la aplicacion que se llamara LosGorditosPlus
-
-``
-  react-native init LosGorditosPlus
 
 ```
+  react-native init LosGorditosPlus
+```
 
-Utilizaremos la estructura que otorga Facebook en sus ejemplos de ReactNative, tendremos una carpeta app que contenga los componentes de la aplicacion con sus respectivos estilos y recursos.
+Utilizaremos la estructura que otorga Facebook en sus ejemplos de ReactNative, tendremos una carpeta app que contenga los componentes de la aplicación con sus respectivos estilos y recursos.
 
-``
+
+```
   cd LosGorditosPlus
   mkdir app
   mkdir app/components
@@ -320,22 +324,72 @@ Utilizaremos la estructura que otorga Facebook en sus ejemplos de ReactNative, t
   mkdir app/components/styles
 ```
 
-
-*<Text style="text-decoration: underline; margin: 15px;"> 3.2. Desarrollo del Menú </Text><br>*
-
-Se quiere tener un menu que se despliege del lado izquierdo de la aplicacion por lo que instalaremos la librera [react-native-drawer](https://github.com/root-two/react-native-drawer).
-
-``
-  npm install --save react-native-drawer
-``
-
-Creamos los archivos a los cuales se accederan desde el menu
+Proseguimos instalando [react-native-router-flux](https://github.com/aksonov/react-native-router-flux)
 
 ```
-# Vista del Menu
+npm install --save react-native-router-flux
+```
 
-  touch app/components/MenuBar.js
+Esta librería nos permitirá utilizar su componente Router y Scene además de las funcionalidades que estos ofrecen, cada escena representa una pantalla que será renderizada sobre el componente actual.
 
+Comenzaremos creando el componente principal de nuestra aplicación, el menú de navegación.
+
+```
+#Vista del menú
+
+touch app/components/MenuBar.js
+```
+
+Ahora en el index estableceremos la escena que invoque al componente MenuBar.js
+
+```
+import React, { Component } from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+import {
+  AppRegistry
+} from 'react-native';
+import MenuBar from './app/components/MenuBar';
+
+export default class LosGorditosPlus extends Component {
+  render() {
+    return (
+      <Router>
+        <Scene key="root" hideNavBar>
+          <Scene key="MenuBar" component={MenuBar} initial={true} />
+        </Scene>
+      </Router>
+    )
+  }
+}
+
+AppRegistry.registerComponent('LosGorditosPlus', () => LosGorditosPlus);
+```
+
+Como se observa, estamos pasando los siguientes props al componente Scene:
+
+- key: String único que sirve para referenciar la escena. Al pasarle como valor "root" indicamos que es raíz de las escenas.
+- hideNavBar: Oculta la barra de navegación de Flux.
+- component: Componente a ser renderizado en la escena o pagina.
+- initial: Indica que es la primera escena a mostrar al ejecutar la aplicación.
+
+
+Por ahora tenemos que al iniciar la aplicación se renderiza el componente Menubar.
+
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.2. Desarrollo del Menú </Text>*
+<br>
+<br>
+Se quiere tener un menú que se despliegue del lado izquierdo de la aplicación, utilizaremos la librería [react-native-drawer](https://github.com/root-two/react-native-drawer) que facilita la implementación de un DrawerMenu funcional en ambas plataformas (iOS, Android). 
+
+
+```
+  npm install --save react-native-drawer
+```
+
+Creamos las pantallas a las cuales se accederán desde el menú
+
+```
 
 # Pantalla de Presentacion de Categorias
 
@@ -357,7 +411,7 @@ Creamos los archivos a los cuales se accederan desde el menu
 
 ```
 
-Podemos colocar en cada uno de estos archivos un pequeno codigo que nos permita visualizar el cambio de la pantalla
+Podemos colocar en cada uno de estos archivos un pequeño código que nos permita visualizar la funcionalidad de nuestro menú al cambiar la pantalla
 
 ```
 class <Nombre_Clase> extend Component {
@@ -372,7 +426,7 @@ module.exports= <Nombre_Clase>
 ```
 
 
-Empezamos la implementacion del menu necesitamos importar la libreria instalada y cada uno de los componentes (pantallas) que seran llamados.
+Empezamos la implementación del menú necesitamos importar la librería instalada y cada uno de los componentes (pantallas) que serán llamados.
 
 ```
 import TabMenuList from './TabMenuList';
@@ -395,35 +449,34 @@ module.exports= <Nombre_Clase>
 ```
 
 
-Usaremos el elemento Image como contenedor debido a que se tienen muchas images de fondos.
+Usaremos el componente Image como contenedor para colocar la imagen de fondo y sobreponer componentes en esta.
 
-Drawer: Este componente consta de 2 partes, el contenido que va dentro de las etiquetas es lo que se muestra en la pantalla, mientras que el componente declarado en la propiedad "content" se muestra en el drawer. Requiere la declaracion de los estados Open y Disabled para el control de este y de las funciones para abrirlo y cerrarlo. Entre sus props tenemos:
+Drawer: Este componente consta de 2 partes, el contenido que va dentro de las etiquetas es lo que se muestra en la pantalla, mientras que el componente declarado en la propiedad "content" se muestra en el drawer. Requiere la declaración de los estados Open y Disabled para el control de este y de las funciones para abrirlo y cerrarlo. Entre sus props tenemos:
 
 - type: Puede tomar dos valores, "static" el Drawer se pinta en la pantalla deslizando el contenido de esta hacia la derecha. Y "overlay", se pinta encima del contenido de la pantalla.
-- content: Aqui se declara el contenido que se mostrara en el drawer.
-- onOpen: Funcion a realizar en la apertura del Drawer,
-- onClose: Funcion a raelizar al cerrar el Drawer.
+- content: Aquí se declara el contenido que se mostrara en el drawer.
+- onOpen: Función a realizar en la apertura del Drawer,
+- onClose: Función a realizar al cerrar el Drawer.
 
 
-Desglozaremos el contenido del Drawer en un archivo llamado DrawerContent para que el codigo sea mas legible y veamos como comunicar al componente padre con el hijo.
+Desglosaremos el contenido del Drawer en un archivo llamado DrawerContent para que el código sea mas legible y veamos como comunicar al componente padre con el hijo.
 
-Creamos en la carpeta components el archivo DrawerContent.js y lo importamos en MenuBar.
+Creamos en la carpeta components el archivo DrawerContent.js
 
 ```
 touch app/components/DrawerContent.js
-
 ```
 
-El DrawerContent interactua con un elemento que le pertene al componente que lo invoca (Padre), ¿Como se comunican los componentes?, el padre requiere pasar funciones que manipulen sus elementos al hijo. Para que el DrawerContent acepte una funcion como props se necesita importar los "PropTypes" de React y definirlos como funciones. En este caso, el props que recibe la funcion se llamara "onClose".
+El DrawerContent interactúa con un elemento que le pertenece al componente que lo invoca (Padre), ¿Como se comunican los componentes?, el padre requiere pasar funciones que manipulen sus elementos al hijo. Para que el DrawerContent acepte una función como props se necesita importar los "PropTypes" de React y definirlos como funciones. En este caso, el props que recibe la función se llamara "onClose".
 
-Como vimos en el diseño el drawer consta de 5 botones (Opciones de Navegacion y el boton del menu) junto a un indicador que se posiciona en la pagina actual para lo cual se le asignara un valor a cada Opcion de Navegacion, sera pasado por el padre bajo el nombre de "selected_page", asi podremos saber donde pintar el indicador. Tambien, implementaremos la libreria Flux para que al seleccionar una opcion mandemos a refrescar el contexto utilizando la accion "Actions.refresh(PARAM)", donde pasaremos como parametros:
+Como vimos en el diseño el drawer consta de 5 botones (Opciones de Navegación y el botón del menú) junto a un indicador que se posiciona en la pagina actual para lo cual se le asignara un valor a cada Opción de Navegación, será pasado por el padre bajo el nombre de "selected_page", así podremos saber donde pintar el indicador. También, implementaremos la librería Flux para que al seleccionar una opción mandemos a refrescar el contexto utilizando la acción "Actions.refresh(PARAM)", donde pasaremos como parámetros:
 
-- page_title: Titulo a mostrar en la bara de navegacion.
+- page_title: Titulo a mostrar en la barra de navegación.
 - bg: Variable de control del fondo.
-- ts: Variable de control del estilo de la bara de navegacion.
+- ts: Variable de control del estilo de la barra de navegación.
 - selected_page: Pagina seleccionada.
 
-Mas adelante se explicara que hace la accion flux refresh
+Mas adelante se explicara que hace la acción flux refresh
 
 ```
 #DrawerContent
@@ -520,15 +573,15 @@ module.exports = DrawerContent;
 
 ```
 
-Regresando al MenuBar, importamos el contenido del Drawer
+Regresamos al MenuBar, importamos el contenido del Drawer
 
 ```
 import DrawerContent from './DrawerContent';
 ```
 
-Primero haremos nuestra propia bara de Navegacion que tendra el boton para acceder al menu de la aplicacion (Drawer) y el titulo de la pagina en el cual se mostrar el valor del prop "page_title", despues, colocaremos el contenido de la pagina que deseamos mostrar.
+Primero haremos nuestra propia barra de Navegación que tendrá el botón para acceder al menú de la aplicación (Drawer) y el titulo de la pagina en el cual se mostrar el valor del prop "page_title", después, colocaremos el contenido de la pagina que deseamos mostrar.
 
-No utilizaremos Flux para la navegacion de las paginas principales de la aplicacion sino que lo haremos por medio de un switch que evalue el props "selected_page" y renderice en base a su valor ya que esto nos permite que se sustituya el componente que se muestra en pantalla en lugar de sobreponer una escena.
+No utilizaremos Flux para la navegación de las paginas principales de la aplicación sino que lo haremos por medio de un switch que evalúe el prop "selected_page" y se renderiza en base a su valor ya que esto nos permite que se sustituya el componente que se muestra en pantalla en lugar de sobreponer una escena.
 
 ```
 #Vista del Menu
@@ -627,28 +680,67 @@ class MenuBar extends Component {
 }
 ```
 
-Con esto ya tenemos nuestro componente principal MenuBar, el cual se encarga de mostrar el menu de navegacion de la aplicacion y renderizar las pantallas, como es el componente padre al refrescar con la accion Flux se actualizara y volvera a evaluar sus props cambiando el titulo de la pagina o renderizando una nueva pantalla. Inconveniente, es el unico componente al cual podemos actualizar sus props con el refresh.
+Con esto ya tenemos nuestro componente principal MenuBar, el cual se encarga de mostrar el menú de navegación de la aplicación y renderizar las pantallas, como es el componente padre al refrescar con la acción Flux se actualizara y volverá a evaluar sus props cambiando el titulo de la pagina o renderizando una nueva pantalla. Inconveniente, es el único componente al cual podemos actualizar sus props con el refresh de flux "Actions.refresh()".
 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.3. Desarrollo de la Pantalla de Presentación de Categorías</Text><br>*
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.3. Desarrollo de la Pantalla de Presentación de Categorías</Text>*
+<br>
+<br>
 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.4. Desarrollo de la Pantalla de Lista de Platos</Text><br>*
-	 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.5. Desarrollo de la Pantalla de Detalle del Plato</Text><br>*
-	 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.6. Desarrollo de la Pantalla de Información</Text><br>*
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.4. Desarrollo de la Pantalla de Lista de Platos</Text>*
+<br>
+<br> 
 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.7. Desarrollo de la Pantalla de Ubicación</Text><br>*
-	  
-*<Text style="text-decoration: underline; margin: 15px;"> 3.8. Desarrollo de la Pantalla de Detalle de Ubicación</Text><br>*
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.5. Desarrollo de la Pantalla de Detalle del Plato</Text>*
+<br>
+<br>
 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.9. Desarrollo de la Pantalla de Contacto</Text><br>*
+<br>
+<br>	 
+*<Text style="text-decoration: underline; margin: 15px;"> 3.6. Desarrollo de la Pantalla de Información</Text>*
+<br>
+<br>
 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.10. Desarrollo de la Pantalla para Contactar</Text><br>*
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.7. Desarrollo de la Pantalla de Ubicación</Text>*
+<br>
+<br>
 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.11. Desarrollo del Splash para el inicio de la aplicación</Text><br>*
+<br>
+<br> 
+*<Text style="text-decoration: underline; margin: 15px;"> 3.8. Desarrollo de la Pantalla de Detalle de Ubicación</Text>*
+<br>
+<br>
 
-*<Text style="text-decoration: underline; margin: 15px;"> 3.12. Instalación en el dispositivo</Text><br>*
-	 
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.9. Desarrollo de la Pantalla de Contacto</Text>*
+<br>
+<br>
+
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.10. Desarrollo de la Pantalla para Contactar</Text>*
+<br>
+<br>
+
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.11. Desarrollo del Splash para el inicio de la aplicación</Text>*
+<br>
+<br>
+
+<br>
+<br>
+*<Text style="text-decoration: underline; margin: 15px;"> 3.12. Instalación en el dispositivo</Text>*
+<br>
+<br>	 
 
 	  
 
