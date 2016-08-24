@@ -761,7 +761,7 @@ Cambiamos en el archivo MenuBar.js:
   switch (this.props.selected_page) {
     ...
     case 4: return <TabMenuList/>
-    ...          
+    ...         
 ```
 
 Por
@@ -946,8 +946,171 @@ Comenzamos instalando la librería [react-native-menu](https://www.npmjs.com/pac
 - MenuOption: Opción del menú. 
 - MenuTrigger: Disparador que renderiza el menú.
 
-Como queremos que el dropMenu abarque la pantalla al ser accionado enceramos el componente ListView entre las etiquetas <MenuContext> y <MenuContext /> de esta manera el dropMenu se sobrepondrá en toda la lista. Haremos un menú que despliegue dos opciones, una de estas será para llamar a la escena que mostrara el detalle del plato correspondiente, utilizaremos la función del componente menú "onSelect" que evalúa la selección de una de sus opciones y ejecutara una función, para lo cual es necesario indicarle un valor a la etiqueta MenuOption através del props "value", colocaríamos el siguiente código donde queremos que este nuestro dropMenu:
+Como queremos que el dropMenu abarque la pantalla enceramos el componente ListView entre las etiquetas <MenuContext> y <MenuContext /> de esta manera el dropMenu se sobrepondrá en toda la lista. Haremos un menú que despliegue dos opciones, una de estas será para llamar a la escena que mostrara el detalle del plato correspondiente, usando la función del componente menú "onSelect" se evalúa la selección de una de sus opciones y ejecutara la función que establecida en el "onSelect", es necesario indicarle un valor a la etiqueta MenuOption a través del props "value", colocaríamos el siguiente código donde queremos que este nuestro dropMenu:
 
+```
+<Menu style={styles.img_menu} onSelect={(value) => /*Funcion a ejecutar*/}>
+  
+  <MenuTrigger style={styles.img_menu}>
+    {/* Componente que representa el icono del menú */}
+  </MenuTrigger>
+
+  <MenuOptions optionsContainerStyle={/*Estilo del contenedor de la opción*/}>
+    
+    <MenuOption  value={/*Valor de la opción*/}>
+        {/* Componente a mostrar en la opción*/}
+    </>
+    <MenuOption value={/*Valor de la opción*/}>
+      {/* Componente a mostrar en la opción */}
+    </MenuOption>
+
+  </MenuOptions>
+
+</Menu> 
+```
+
+Ahora que sabemos como implementar el dropMenu pasaremos a trabajar en la función "renderMenu" recapitulando:
+
+- Se encarga de retornar la renderización del componente de una fila.
+- Recibe en el parámetro "data" la información de una fila que consigue del dataSource definido en el estado del componente.
+- Se debe mostrar por fila la Imagen del plato, nombre, precio, ranking y añadirle un dropMenu.
+- Al final de la fila se debe anexar un componente vacío.
+
+
+Utilizaremos la elaboración del componente que representa la fila en la lista de platos para repasar algunos conceptos base de ReactNative
+
+
+Empezaremos estableciendo el contenedor de todos los elementos que utilizaremos
+
+```
+renderMenu(data){
+  return (
+      <View>
+
+      <View />
+  );
+}
+```
+
+El primer elemento de nuestra fila es una imagen que obtendrá su contenido de un fichero local del proyecto através del prop "source" y cerramos la imagen en la misma etiqueta para que no sea tomada como contenedor.
+
+```
+renderMenu(data){
+  return (
+      <View>
+        <Image source={data.img} />
+      <View />
+  );
+}
+```
+Seguidamente, si observamos el diseño tocaría pintar el nombre del Plato y un icono que represente el menú. Por defecto, la orientación entre componentes es por columna y varias filas requeriríamos indicarle al contenedor que oriente por filas para trabajar con varias columnas pero esto afectaría a todos los elementos que estén estableció dentro de este por lo cual requerimos la definición de un subcontenedor de esta manera al aplicar el estilo " flexDirection: 'row' " los componentes dentro del contenedor se posicionaran uno al lado del otro.
+
+Utilizaremos el componente <Text> para mostrar el titulo y declararemos nuestro menú como se indico previamente, utilizaremos como icono una imagen y las opciones del menú serán textos.
+
+```
+renderMenu(data){
+  return (
+      <View>
+        <Image source={data.img} />
+        <View style={{flexDirection: 'row'}}>
+          <Text>{data.title}<Text />
+          <Menu onSelect={(value) => this.changeView(value,data)}>
+                <MenuTrigger style={styles.img_menu}>
+                  <Image source={require('_Direccion_Local_de_la_Imagen_')} />
+                </MenuTrigger>
+                <MenuOptions optionsContainerStyle={styles.dropdownOptions}>
+                  <MenuOption  value={0}>
+                    <Text>Detalle</Text>
+                  </MenuOption>
+                  <MenuOption value={1}>
+                    <Text>Pedir</Text>
+                  </MenuOption>
+                </MenuOptions>
+              </Menu>    
+        <View />
+      <View />
+  );
+}
+```
+Vemos que al seleccionar una opción estamos invocando la función del MenuList "changeView" y le estamos pasando el valor de la opción y la información de la fila, mas adelante la definiremos para hacer la llamada de la escena "Detalle".
+
+Volvemos a definir un subcontenedor para el precio y el ranking en nuestro componente supondremos que nuestra data contiene un atributo rank con la dirección de la imagen del ranking. Finalmente, anexamos la condición si data.last es true se renderiza un contenedor vacío si no que retorne el componente, además le agregamos los estilos a nuestro componente.
+
+```
+renderMenu(data){
+  return (
+    data.last ? <View style={styles.img}/> :
+    <View style={styles.containerMenu}>
+      <Image style={styles.img} source={data.img}/>
+      <View style={styles.bg}>
+        <View style={styles.rowStyle}>
+          <Text style={styles.title}>{data.title}</Text>    
+            <Menu style={styles.img_menu} onSelect={(value) => this.changeView(value,data)}>
+              <MenuTrigger style={styles.img_menu}>
+                <Image style={styles.img_menu} source={require('./resources/1_Icons/recursos-07.png')} />
+              </MenuTrigger>
+              <MenuOptions optionsContainerStyle={styles.dropdownOptions}>
+                <MenuOption  value={0}>
+                    <Text style={styles.dropText}>Detalle</Text>
+                </MenuOption>
+                <MenuOption value={1}>
+                  <Text style={styles.dropText}>Pedir</Text>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>           
+        </View>
+        <View style={styles.rowStyle}>
+          <Text style={styles.price}>{data.price}</Text>
+          <Image style={styles.img_menu} source={data.rank}/>
+        </View>
+      </View>
+    </View>
+  );
+}
+```
+Para terminar con nuestro componente MenuList nos falta definir la función changeView que recibe dos parámetros, value y data, el objetivo de esta función es hacer las acciones respectivas de navegación dependiendo del valor de la opción seleccionada en el dropMenu. Utilizaremos las acciones flux para la navegación por lo que será necesario importarlas.
+
+
+```
+import { Actions } from 'react-native-router-flux';
+```
+
+Definiremos la función para que llame a la escena MenuDetail cuando el usuario seleccione la opción de "detalle" (value=0) o mande al componente MenuBar a actualizar y renderizar la pantalla de Contacto.
+
+```
+changeView(value, data) {
+  if (value === 0) {
+    Actions.MenuDetail({plato: data})
+  }
+  else {
+    Actions.refresh({page_title: 'contacto', selected_page: 2})
+  }
+}
+```
+
+Ahora, como estamos llamando a la escena MenuDetail requerimos incorporarla en nuestro Router. Repetimos los mismos paso que con la escena Menubar, creamos nuestro archivo MenuDetail.js, lo importamos en el index y definimos la escena pero esta vez sin el prop initial.
+
+```
+import React, { Component } from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+import {AppRegistry} from 'react-native';
+import MenuBar from './app/components/MenuBar';
+import MenuDetail from './app/components/MenuDetail';
+
+export default class LosGorditosPlus extends Component {
+  render() {
+    return (
+      <Router>
+        <Scene key="root" hideNavBar>
+          <Scene key="MenuBar" component={MenuBar} initial={true} />
+          <Scene key="MenuDetail" component={MenuDetail} />
+        </Scene>
+      </Router>
+    )
+  }
+}
+AppRegistry.registerComponent('LosGorditosPlus', () => LosGorditosPlus);
+```
 
 <br>
 <br>
