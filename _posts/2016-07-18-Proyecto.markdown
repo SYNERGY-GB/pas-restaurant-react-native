@@ -646,9 +646,22 @@ class MenuList extends Component {
 }
 ```
 
+h. Libreria para el estilo de la aplicacion, [Dimensions](https://facebook.github.io/react-native/docs/dimensions.html): Nos permite obtener las dimensiones de la pantalla del dispositivo. Observacion: Presenta errores al tomar las dimensiones de la pantalla en la plataforma Android, se puede solventar con el uso de Flex o estableciendo un codigo especifico para la plataforma [Platform Specific Code](https://facebook.github.io/react-native/docs/platform-specific-code.html).
+
+Uso General:
+
+```
+import { Dimensions } from 'react-native';
+
+const W_height = Dimensions.get('window').height;
+const W_width = Dimensions.get('window').width;
+```
+
+i. [@remobile/react-native-splashscreen](https://github.com/remobile/react-native-splashscreen): Libreria que manipula el tamaño de la imagen para mostrar el splash. En el desarrollo del splash se indicara como se utiliza.
+
 *Pueden descargar la app del repositorio:* [Synergy-GB React Native](https://github.com/SYNERGY-GB/pas-restaurant-react-native) 
 
-<br>
+-----------------------------------------------------------------------------------------
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.1. Inicio e Implementación de la librería Flux</Text>*
 <br>
@@ -707,40 +720,35 @@ AppRegistry.registerComponent('LosGorditosPlus', () => LosGorditosPlus);
 
 Por ahora tenemos que al iniciar la aplicación se renderiza el componente Menubar.
 
-<br>
+
+-----------------------------------------------------------------------------------------
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.2. Desarrollo del Menú </Text>*
 <br>
 <br>
-Se quiere tener un menú que se despliegue del lado izquierdo de la aplicación, utilizaremos la librería [react-native-drawer](https://github.com/root-two/react-native-drawer) que facilita la implementación de un DrawerMenu funcional en ambas plataformas (iOS, Android). 
-
-
-```
-  npm install --save react-native-drawer
-```
+Se quiere tener un menú que se despliegue del lado izquierdo de la aplicación que contenga cuatro opciones para la navegación Menú, Información, Ubicación y Contacto.
 
 Creamos las pantallas a las cuales se accederán desde el menú
 
 ```
-
-# Pantalla de Presentacion de Categorias
+# Pantalla de Presentacion de Categorias del Menú
 
   touch app/components/MenuView.js
 
-
-# Pantalla de Lista de Platos
+# Pantalla de Lista de Platos.
 
   touch app/components/TabMenuList.js
 
-
-# Pantalla de Informacion
+# Pantalla de Información
 
   touch app/components/About.js
 
-# Pantalla de Ubicacion
+# Pantalla de Ubicación
 
   touch app/components/Location.js
 
+# Pantalla de Contacto
+  touch app/components/Contact.js
 ```
 
 Podemos colocar en cada uno de estos archivos un pequeño código que nos permita visualizar la funcionalidad de nuestro menú al cambiar la pantalla
@@ -758,7 +766,7 @@ module.exports= <Nombre_Clase>
 ```
 
 
-Empezamos la implementación del menú necesitamos importar la librería instalada y cada uno de los componentes (pantallas) que serán llamados.
+Empezamos la implementación del menú necesitamos importar la librería (React-Native-Drawer)[https://github.com/root-two/react-native-drawer] y cada una de las pantallas que serán llamadas desde el menú.
 
 ```
 import TabMenuList from './TabMenuList';
@@ -780,19 +788,136 @@ class MenuBar extend Component {
 module.exports= MenuBar
 ```
 
-
 Usaremos el componente Image como contenedor para colocar la imagen de fondo y sobreponer componentes en esta.
 
 
-Desglosaremos el contenido del Drawer en un archivo llamado DrawerContent para que el código sea mas legible y veamos como comunicar al componente padre con el hijo.
-
-Creamos en la carpeta components el archivo DrawerContent.js
+Desglosaremos el contenido del Drawer en un archivo llamado DrawerContent para que el código sea mas legible. Creamos en la carpeta components el archivo DrawerContent.js
 
 ```
 touch app/components/DrawerContent.js
 ```
 
-El DrawerContent interactúa con un elemento que le pertenece al componente que lo invoca (Padre), ¿Como se comunican los componentes?, el padre requiere pasar funciones que manipulen sus elementos al hijo. Para que el DrawerContent acepte una función como props se necesita importar los "PropTypes" de React y definirlos como funciones. En este caso, el props que recibe la función se llamara "onClose".
+Regresamos a la clase MenuBar e importamos el contenido del Drawer
+
+```
+import DrawerContent from './DrawerContent';
+```
+
+Nuestra clase manejara los siguientes props:
+
+- bg: Establece la dirección de la imagen de fondo 
+- ts: Establece el estilo que tendrá el titulo de la pantalla
+- selected_page: Valor numérico con el cual se selecciona el componente a renderizar
+- page_title: Titulo de la pantalla
+- selectedTab: Valor numérico que indica la categoría Tab seleccionada
+
+Primero, haremos la seccion que se muestra en la pantalla esta sera una barra de Navegación que tendrá el botón para acceder abrir el drawer o acceder al menú de la aplicación (Drawer) seguido del titulo de la pantalla en la cual nos encontramos por lo que mostrara el valor del prop "page_title". Bajo la barra de navegación colocaremos el componente a invocar.
+
+No utilizaremos Flux para la navegación de las paginas principales de la aplicación sino que lo haremos por medio de un switch que evalúe el prop "selected_page" para renderizar el componente correspondiente a su valor, esto nos permite que se sustituya el componente que se muestra en pantalla en lugar de sobreponer una escena.
+
+Por ultimo, establecemos el contenido del Drawer invocando al componente DrawerContent con los props onClose, función para cerrar el drawer, y selected_page, para manejar el indicador interno del menu.
+
+```
+#Vista del Menu
+
+'use strict';
+import React, { Component } from 'react';
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  Image
+} from 'react-native';
+import TabMenuList from './TabMenuList';
+import MenuView from './MenuView';
+import Location from './Location';
+import About from './About';
+import Contact from './Contact';
+import DrawerContent from './DrawerContent';
+import Drawer from 'react-native-drawer';
+import styles from './styles/MenuBar_style';
+
+class MenuBar extends Component {
+
+ constructor(props){
+    super(props);
+    this.state={
+      drawerOpen: false,
+      drawerDisabled: false,
+    }
+  }
+
+  # Funcion para cerrar el drawer Menu
+  closeDrawer = () => {
+    this._drawer.close()
+  }
+
+  # Funcion para abrir el drawer menu
+  openDrawer = () => {
+    this._drawer.open()
+  }
+
+  render() {
+    var bg = this.props.bg ? require('./resources/6_BG/bg2.png') : require('./resources/6_BG/bg.png');
+    var title_style = this.props.ts ? styles.container_title : styles.container_title_b 
+    return (
+      <Image style={styles.bg} source={bg} >
+        <Drawer
+          ref={(ref) => this._drawer = ref}
+          type="overlay"
+          content={
+            <DrawerContent onClose={this.closeDrawer} selected_page={this.props.selected_page} />
+          }
+          acceptDoubleTap
+          onOpen={() => {
+            this.setState({drawerOpen: true})
+          }}
+          onClose={() => {
+            this.setState({drawerOpen: false})
+          }}
+          captureGestures={false}
+          tweenDuration={200}
+          panThreshold={0.50}
+          disabled={this.state.drawerDisabled}
+          openDrawerOffset={(viewport) => {
+            return 100
+          }}
+          closedDrawerOffset={() => 0}
+          panOpenMask={0.2}
+          negotiatePan
+          >
+
+            <View style={title_style} >
+                <TouchableOpacity style={styles.menu_icon} onPress={()=>{
+                  this._drawer.open()
+                }}>
+                  <Image style={styles.menu_icon} source={require('./resources/1_Icons/recursos-01.png')} />
+                </TouchableOpacity>
+                <Text style={styles.page_title}> {this.props.page_title} </Text>       
+            </View>
+
+
+            { () => {
+              switch (this.props.selected_page) {
+                case 0: return <MenuView />;
+                case 1: return <About />;
+                case 2: return <Contact />;
+                case 3: return <Location/>;
+                case 4: return <TabMenuList />
+                default: return <MenuView />;
+              }
+            })()}
+        </Drawer>
+      </Image>
+    );
+  }
+}
+```
+
+Con esto ya tenemos nuestro componente principal MenuBar, el cual se encarga de mostrar el menú de navegación de la aplicación y renderizar las pantallas, como es el componente padre al refrescar con la acción Flux se actualizara y volverá a evaluar sus props cambiando el titulo de la pagina o renderizando una nueva pantalla.
+
+
+Pasamos a elaborar el componente DrawerContent.
 
 Como vimos en el diseño el drawer consta de 5 botones (Opciones de Navegación y el botón del menú) junto a un indicador que se posiciona en la pagina actual para lo cual se le asignara un valor a cada Opción de Navegación, será pasado por el padre bajo el nombre de "selected_page", así podremos saber donde pintar el indicador. También, implementaremos la librería Flux para que al seleccionar una opción mandemos a refrescar el contexto utilizando la acción "Actions.refresh(PARAM)", donde pasaremos como parámetros:
 
@@ -816,12 +941,12 @@ import styles from './styles/MenuBar_style';
 import { Actions } from 'react-native-router-flux';
 
 class DrawerContent extends Component {
-	 static propTypes = {
+   static propTypes = {
     onClose: PropTypes.func,
   };
   render (){
-		return(
-			<Image style={styles.containerMenu} source={require('./resources/menu.png')}>
+    return(
+      <Image style={styles.containerMenu} source={require('./resources/menu.png')}>
               <TouchableOpacity style={styles.menu_icon} onPress={()=>{
                 this.props.onClose()
               }}>
@@ -888,122 +1013,14 @@ class DrawerContent extends Component {
               </TouchableOpacity>
               <Image style={styles.menu_logo}source={require('./resources/3_Logos/menu_logo.png')}/>
             </Image>
-		);
-	}
-}
-
-module.exports = DrawerContent;
-
-```
-
-Regresamos al MenuBar, importamos el contenido del Drawer
-
-```
-import DrawerContent from './DrawerContent';
-```
-
-Primero haremos nuestra propia barra de Navegación que tendrá el botón para acceder al menú de la aplicación (Drawer) y el titulo de la pagina en el cual se mostrar el valor del prop "page_title", después, colocaremos el contenido de la pagina que deseamos mostrar.
-
-No utilizaremos Flux para la navegación de las paginas principales de la aplicación sino que lo haremos por medio de un switch que evalúe el prop "selected_page" y se renderiza en base a su valor ya que esto nos permite que se sustituya el componente que se muestra en pantalla en lugar de sobreponer una escena.
-
-```
-#Vista del Menu
-
-'use strict';
-import React, { Component } from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  View,
-  Image
-} from 'react-native';
-import TabMenuList from './TabMenuList';
-import MenuView from './MenuView';
-import Location from './Location';
-import About from './About';
-import Contact from './Contact';
-import DrawerContent from './DrawerContent';
-import Drawer from 'react-native-drawer';
-import styles from './styles/MenuBar_style';
-
-class MenuBar extends Component {
-
- constructor(props){
-    super(props);
-    this.state={
-      drawerOpen: false,
-      drawerDisabled: false,
-    }
-  }
-
-  # Funcion para cerrar el drawer Menu
-  closeDrawer = () => {
-    this._drawer.close()
-  }
-
-  # Funcion para abrir el drawer menu
-  openDrawer = () => {
-    this._drawer.open()
-  }
-
-  render() {
-    var bg = this.props.bg ? require('./resources/6_BG/bg2.png') : require('./resources/6_BG/bg.png');
-    var title_style = this.props.ts ? styles.container_title : styles.container_title_b 
-    return (
-      <Image style={styles.bg} source={bg} >
-        <Drawer
-          ref={(ref) => this._drawer = ref}
-          type="overlay"
-          content={
-            <DrawerContent onClose={this.closeDrawer} />
-          }
-          acceptDoubleTap
-          onOpen={() => {
-            this.setState({drawerOpen: true})
-          }}
-          onClose={() => {
-            this.setState({drawerOpen: false})
-          }}
-          captureGestures={false}
-          tweenDuration={200}
-          panThreshold={0.50}
-          disabled={this.state.drawerDisabled}
-          openDrawerOffset={(viewport) => {
-            return 100
-          }}
-          closedDrawerOffset={() => 0}
-          panOpenMask={0.2}
-          negotiatePan
-          >
-
-            <View style={title_style} >
-                <TouchableOpacity style={styles.menu_icon} onPress={()=>{
-                  this._drawer.open()
-                }}>
-                  <Image style={styles.menu_icon} source={require('./resources/1_Icons/recursos-01.png')} />
-                </TouchableOpacity>
-                <Text style={styles.page_title}> {this.props.page_title} </Text>       
-            </View>
-
-
-            { () => {
-              switch (this.props.selected_page) {
-                case 0: return <MenuView />;
-                case 1: return <About />;
-                case 2: return <Contact />;
-                case 3: return <Location/>;
-                case 4: return <TabMenuList />
-                default: return <MenuView />;
-              }
-            })()}
-        </Drawer>
-      </Image>
     );
   }
 }
+
+module.exports = DrawerContent;
 ```
 
-Con esto ya tenemos nuestro componente principal MenuBar, el cual se encarga de mostrar el menú de navegación de la aplicación y renderizar las pantallas, como es el componente padre al refrescar con la acción Flux se actualizara y volverá a evaluar sus props cambiando el titulo de la pagina o renderizando una nueva pantalla. Inconveniente, es el único componente al cual podemos actualizar sus props con el refresh de flux "Actions.refresh()".
+-------------------------------------------------------------------
 
 <br>
 <br>
@@ -1011,13 +1028,13 @@ Con esto ya tenemos nuestro componente principal MenuBar, el cual se encarga de 
 <br>
 <br>
 
-Esta pantalla se realizara en el archivo MenuView.js, se desea mostrar 5 botones que representan las categorías de comida que maneja el sitio de comida y que al ser presionada se cargue el componente MenuView para esto mandaremos a refrescar la ruta inicial con los props:
+Esta pantalla se realizara en el archivo MenuView.js, se desea mostrar 5 botones que representan las categorías de comida que maneja el sitio de comida y cuando sean presionadas se cargue el componente TabMenuList para esto mandaremos a refrescar la ruta inicial con los props:
 
 - page_title: Titulo que se mostrara en la barra de navegación.
 - bg: Variable de control para colocar el fondo de la aplicación.
 - ts: Variable que controla el estilo de la barra de navegación.
 - selected_page: Pagina seleccionada.
-- selectedTab: Numero de la categoría que fue seleccionada para marcar el tab en la siguiente pantalla.
+- selectedTab: Número de la categoría que fue seleccionada para marcar el tab en la siguiente pantalla.
 
 ```
 import React, { Component } from 'react';
@@ -1092,7 +1109,8 @@ Por
     ...
 ```
 
-<br>
+--------------------------------------------------------------------------
+
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.4. Desarrollo de la Pantalla de Lista de Platos</Text>*
 <br>
@@ -1102,7 +1120,7 @@ El desarrollo de esta pantalla lo realizaremos en el archivo TabMenuList.js, com
 
 Se utilizaran variables con la información a mostrar, fake_data, que representan un array que contiene la información a ser mostrada.
 
-Primero iniciaremos con la implementacion del TabNavigator, al utilizar este componente tendremos dos etiquetas principales <TabNavigator> que es el contenedor de los tabs y <TabNavigator.Item> que son los tab per se y contenedor del componente a mostrar, ademas contiene props que facilitan la funcionalidad del tab como:
+Primero iniciaremos con la implementacion del TabNavigator, recordemos que al utilizar este componente tendremos dos etiquetas principales <TabNavigator> que es el contenedor de los tabs y <TabNavigator.Item> que son los tab per se y contenedor del componente a mostrar, ademas contiene props que facilitan la funcionalidad del tab como:
 
 - selected: Es un valor booleano que activa el tab cuando esta seleccionado, asociaremos una igualdad con el valor que pasamos "selected_tab" para activar el tab respectivo.
 - renderIcon: Icono que tendra el tab cuando esta inactivo.
@@ -1193,7 +1211,7 @@ class TabMenuList extends Component {
 module.exports = TabMenuList;
 ```
 
-Ahora que tenemos nuestra pantallas con Tabs pasaremos a elaborar el componente que muestra la lista de platos, tomaremos en cuenta que este recibira la informacion por el props fake_data que contendra el titulo del plato, precio, imagen, ranking y descripcion del mismo.
+Ahora que tenemos nuestra pantallas con Tabs pasaremos a elaborar el componente que muestra la lista de platos, tomaremos en cuenta que este recibira la información por el props fake_data que contendra el titulo del plato, precio, imagen, ranking y descripción del mismo.
 
 Creamos el archivo MenuList.js
 
@@ -1202,66 +1220,9 @@ touch app/components/MenuList.js
 ```
 
 
-Primero, nos encargaremos del funcionamiento de la lista utilizando el componente propio de [ReactNative ListView](https://facebook.github.io/react-native/docs/listview.html) y debemos saber como trabaja:
+Primero, nos encargaremos del funcionamiento de la lista utilizando el componente propio de [ReactNative ListView](https://facebook.github.io/react-native/docs/listview.html)
 
-- Se necesita instanciar el estado del dataSource con un cloneWithRows del array que contiene la información esto seccionara la información por filas, en este caso el array con información esta contenido en el prop del componente "fake_data": 
-
-``` 
-    constructor(props) {
-        super(props);
-
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-        this.state= {
-            dataSource: ds.cloneWithRows(this.props.fake_data)
-        };
-    }
-```
-- Requiere de una función que retorne el componente a pintar en cada fila de la lista (renderRow) al cual se le pasa la información de una fila.
-
-- Para que el scroll del ListView funcione se debe colocar una altura al componente, además, agregar un componente vacío que ocupe espacio al final de la lista para que nos permita visualizar el ultimo renderizado.
-
-Uso general
-
-```
-import {ListView} from 'react-native';
-
-class MenuList extends Component {
-  
-  constructor(props) {
-        super(props);
-
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-        this.state= {
-            dataSource: ds.cloneWithRows(this.props.fake_data)
-        };
-    }
-
-  renderMenu(data){
-    return (
-      <Text> Contenido de la fila </Text>
-      );
-  }
-
-  render() { 
-    return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={(data) => this.renderMenu(data)}/>
-    );
-  }
-}
-```
-Una vez implementado el ListView trabajamos en el contenido de cada fila queremos mostrar la Imagen del plato, nombre, precio, ranking y añadirle un dropMenu. 
-
-Comenzamos instalando la librería [react-native-menu](https://www.npmjs.com/package/react-native-menu) la cual contiene los componentes:
-
-- Menu: Componente Menu donde se contienen las demás etiquetas.
-- MenuContext: Permite establecer el contexto en el cual se sobrepondrá el menú. 
-- MenuOptions: Contenedor de las opciones del menú.
-- MenuOption: Opción del menú. 
-- MenuTrigger: Disparador que renderiza el menú.
+Una vez colocamos la implementación básica del ListView trabajamos en el contenido de cada fila queremos mostrar la Imagen del plato, nombre, precio, ranking y añadirle un dropMenu.
 
 Como queremos que el dropMenu abarque la pantalla enceramos el componente ListView entre las etiquetas <MenuContext> y <MenuContext /> de esta manera el dropMenu se sobrepondrá en toda la lista. Haremos un menú que despliegue dos opciones, una de estas será para llamar a la escena que mostrara el detalle del plato correspondiente, usando la función del componente menú "onSelect" se evalúa la selección de una de sus opciones y ejecutara la función que establecida en el "onSelect", es necesario indicarle un valor a la etiqueta MenuOption a través del props "value", colocaríamos el siguiente código donde queremos que este nuestro dropMenu:
 
@@ -1286,10 +1247,10 @@ Como queremos que el dropMenu abarque la pantalla enceramos el componente ListVi
 </Menu> 
 ```
 
-Ahora que sabemos como implementar el dropMenu pasaremos a trabajar en la función "renderMenu" recapitulando:
+Ahora que sabemos como será el dropMenu pasaremos a trabajar en la función "renderMenu" recapitulando:
 
 - Se encarga de retornar la renderización del componente de una fila.
-- Recibe en el parámetro "data" la información de una fila que consigue del dataSource definido en el estado del componente.
+- Recibe en el parámetro "data" con la información de una fila que consigue del dataSource definido en el estado del componente.
 - Se debe mostrar por fila la Imagen del plato, nombre, precio, ranking y añadirle un dropMenu.
 - Al final de la fila se debe anexar un componente vacío.
 
@@ -1320,7 +1281,7 @@ renderMenu(data){
   );
 }
 ```
-Seguidamente, si observamos el diseño tocaría pintar el nombre del Plato y un icono que represente el menú. Por defecto, la orientación entre componentes es por columna y varias filas requeriríamos indicarle al contenedor que oriente por filas para trabajar con varias columnas pero esto afectaría a todos los elementos que estén estableció dentro de este por lo cual requerimos la definición de un subcontenedor de esta manera al aplicar el estilo " flexDirection: 'row' " los componentes dentro del contenedor se posicionaran uno al lado del otro.
+Seguidamente, si observamos el diseño tocaría pintar el nombre del Plato y un icono que represente el menú. 
 
 Utilizaremos el componente <Text> para mostrar el titulo y declararemos nuestro menú como se indico previamente, utilizaremos como icono una imagen y las opciones del menú serán textos.
 
@@ -1428,15 +1389,24 @@ export default class LosGorditosPlus extends Component {
 }
 AppRegistry.registerComponent('LosGorditosPlus', () => LosGorditosPlus);
 ```
+-------------------------------------------------------------------------------------------
 
-<br>
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.5. Desarrollo de la Pantalla de Detalle del Plato</Text>*
 <br>
 <br>
 Esta pantalla será un escena del Router Flux, significa que se sobrepondrá ante el contenido previo cuando sea invocada por lo que volveremos a establecer la barra de navegación y colocar la imagen de fondo.
 
-Comenzaremos estableciendo nuestra barra de navegación con un BackButton que nos permita regresar a donde estábamos antes de invocar la escena MenuDetail para esto se utiliza la acción "Actions.pop()" que deshace la ultima actividad hecha con Flux. Al igual que en MenuBar usaremos el componente <Image> para contener los elementos de la pantalla y colocar al mismo tiempo la imagen de fondo.
+En esta escena se manejan los siguientes props:
+
+- plato: Variable que contiene la informacion del plato en los atributos img, title, price, rank, descripcion
+- plato.img: Direccion de la imagen del plato
+- plato.title: Nombre del plato
+- plato.price: Precio del plato
+- plato.rank: direccion de la imagen respectiva al ranking
+- plato.descripcion: Breve informacion del plato
+
+Comenzaremos estableciendo nuestra barra de navegación con un BackButton que nos permita regresar a donde estábamos antes de invocar la escena MenuDetail para esto se utiliza la acción "Actions.pop()" que deshace la ultima actividad hecha con Flux. Al igual que en MenuBar usaremos el componente Image para contener los elementos de la pantalla y colocar al mismo tiempo la imagen de fondo.
 
 ```
 export default class MenuDetail extends Component {
@@ -1509,71 +1479,14 @@ export default class MenuDetail extends Component {
 }
 }
 ```
-
-<br>
+----------------------------------------------------------------------------------------------
 <br>	 
 *<Text style="text-decoration: underline; margin: 15px;"> 3.6. Desarrollo de la Pantalla de Información</Text>*
 <br>
 <br>
 En esta pantalla implementaremos un acordeón que contenga la reseña y la lista de las zonas donde se ubica el sitio de comida.
 
-Instalaremos la librería [react-native-collapsible](https://github.com/oblador/react-native-collapsible) e importamos el componente Accordion.
-
-```
-import Accordion from 'react-native-collapsible/Accordion';
-```
-Al utilizar el componente Accordion es necesario pasarle indicarle los siguientes props:
-
-- sections: Variable que contiene la información del Accordion.
-- renderHeader: Función para renderizar la cabecera.
-- renderContent: Función para renderizar el contenido de una cabecera.
-
-```
-<Accordion
-  sections={SECTIONS}
-  renderHeader={this._renderHeader}
-  renderContent={this._renderContent} />
-```
-
-También requerimos de una función para retornar la(s) cabecera(s), y otra para mostrar el contenido de estas. Sin embargo, no siempre se desea mostrar el mismo formato entre las cabeceras o el contenido por lo que se utiliza un variable constante que tenga la información de Accordion.
-
-```
-const SECTIONS = [
-  {
-    title: 'Reseña',
-    content: <Text style={styles.content_text}>Gorditos+ cuando un plato no es suficiente</Text>,
-  },
-  {
-    title: 'Ubicación',
-    content: <LocationList fake_data={fake_data}/>,
-  }
-];
-
-_renderHeader(section, index, isActive) {
-    return (
-      <View style={isActive ? styles.header_on : styles.header_off}>
-        <Text style={ styles.headerText}>{section.title}</Text>
-        <Image style={styles.buttom} source={ isActive ? require('./resources/1_Icons/recursos-11.png') : require('./resources/1_Icons/recursos-12.png')}/>
-      </View>
-    );
-  }
-
-_renderContent(section) {
-    return (
-      <View style={styles.header_off}>
-        {section.content}
-      </View>
-    );
-  }
-```
-
-Vemos que las funciones reciben parámetros estos son manejados internamente por el estado del componente donde:
-
-- section: Variable con información.
-- index: Posición de la sección del acordeón (parecido al row).
-- isActive: Valor booleano que indica la apertura o cierre de una sección del Acordeón.
-
-Procedemos a realizar nuestra pantalla en el archivo de About.js colocando la imagen seguida del componente Accordion
+Realizamos nuestra pantalla en el archivo de About.js colocando la imagen seguida del componente Accordion.
 
 ```
 import React, { Component } from 'react';
@@ -1632,7 +1545,7 @@ export default class About extends Component {
 }
 ```
 
-Vemos que en la segunda seccion del acordeon utilizamos el componente LocationList cuyo objetivo es renderizar la lista de ubicaciones.
+Vemos que en la segunda sección del acordeón utilizamos el componente LocationList cuyo objetivo es renderizar la lista de ubicaciones.
 
 Creamos el archivo LocationList.js
 
@@ -1640,25 +1553,9 @@ Creamos el archivo LocationList.js
 touch app/components/LocationList.js
 ```
 
-Volvemos a utilizar el componente ListView asi que debemos definir en el estado del componente el dataSource con un cloneWithRows del array que contiene la información esto seccionara la información por filas, en este caso el array con información esta contenido en el prop del componente "fake_data": 
+Volvemos a utilizar el componente ListView asi que debemos definir en el estado del componente el dataSource con un cloneWithRows del array que contiene la información esto seccionara la información por filas, en este caso el array con información esta contenido en el prop del componente "fake_data".
 
-``` 
-    constructor(props) {
-        super(props);
-
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-        this.state= {
-            dataSource: ds.cloneWithRows(this.props.fake_data)
-        };
-    }
-```
 - Requiere de una función que retorne el componente a pintar en cada fila de la lista (renderRow) al cual se le pasa la información de una fila.
-
-- Para que el scroll del ListView funcione se debe colocar una altura al componente, además, agregar un componente vacío que ocupe espacio al final de la lista para que nos permita visualizar el ultimo renderizado.
-
-Uso general
-
 
 ```
 import React, { Component } from 'react';
@@ -1706,42 +1603,513 @@ export default class LocationList extends Component {
 }
 ```
 
-<br>
+Observamos que nuestro componente llama en la función changeView a la escena LocationDetail con los parámetros coords, dir y contact, por tanto, hay que agregarla a nuestro Router.
+
+Creamos el archivo
+```
+  touch app/components/LocationDetail.js
+```
+
+Incorporamos la escena en el router
+
+```
+import React, { Component } from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+import {AppRegistry} from 'react-native';
+import MenuBar from './app/components/MenuBar';
+import MenuDetail from './app/components/MenuDetail';
+import LocationDetail from './app/components/LocationDetail';
+
+export default class LosGorditosPlus extends Component {
+  render() {
+    return (
+      <Router>
+        <Scene key="root" hideNavBar>
+          <Scene key="MenuBar" component={MenuBar} initial={true} />
+          <Scene key="MenuDetail" component={MenuDetail} />
+          <Scene key="LocationDetail" component={LocationDetail} />
+        </Scene>
+      </Router>
+    )
+  }
+}
+AppRegistry.registerComponent('LosGorditosPlus', () => LosGorditosPlus);
+```
+
+
+-------------------------------------------------------------------------------------------------
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.7. Desarrollo de la Pantalla de Ubicación</Text>*
 <br>
 <br>
 
-<br>
+Para la pantalla de ubicación se quiere mostrar un mapa que abarque la pantalla en el cual se marquen las sedes del sitio de comida y que estas al ser presionadas invoquen la escena de LocationDetail.
+
+Se trabajara con la variable "fake_data" que contendrá la información de cada sede.
+
+Utilizaremos la librería [React-Native-Maps](https://github.com/lelandrichardson/react-native-maps)
+
+Enceraremos el componente MapView en un View para poder colocar el label que guíe al usuario en la acción de presionar la sede.
+
+```
+import React, { Component } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import MapView from 'react-native-maps';
+import styles from './styles/Location_style';
+import { Actions } from 'react-native-router-flux';
+
+export default class Location extends Component {
+  constructor(props){
+      super(props);
+      this.state={
+        region: {
+                latitude: 10.498086655450642,
+                  longitude: -66.85348734185897,
+                  latitudeDelta: 0.70,
+                  longitudeDelta: 0.70,
+              }
+      }
+  }
+
+  changeView(coord, description, contacto) {
+      Actions.LocationDetail({coords: coord, dir: description, contact:contacto})
+  }
+
+  render() {
+  return (
+    <View style ={styles.container}>
+        <MapView
+          style={styles.map}
+          region={this.state.region}
+          onRegionChange={(region)=> this.setState({region})} >
+            <MapView.Marker
+               coordinate={fake_data0[0].coord}
+               image={require('./resources/1_Icons/recursos-33.png')}
+               onPress={() => this.changeView(fake_data0[0].coord, fake_data0[0].dir, fake_data0[0].contacto)}/>
+            <MapView.Marker
+               coordinate={fake_data0[1].coord}
+               image={require('./resources/1_Icons/recursos-33.png')}
+               onPress={() => this.changeView(fake_data0[1].coord, fake_data0[1].dir, fake_data0[1].contacto)}/>
+            <MapView.Marker
+               coordinate={fake_data0[2].coord}
+               image={require('./resources/1_Icons/recursos-33.png')}
+               onPress={() => this.changeView(fake_data0[2].coord, fake_data0[2].dir, fake_data0[2].contacto)}/>
+        </MapView>
+      <View style={styles.label}>
+        <Text style={styles.text}>Seleccione un Establecimiento</Text>
+      </View>
+    </View>
+  );
+}
+}
+```
+
+Como declaramos la escena en el punto anterior no es necesario modificar el Router
+
+----------------------------------------------------------------------------
+
 <br> 
 *<Text style="text-decoration: underline; margin: 15px;"> 3.8. Desarrollo de la Pantalla de Detalle de Ubicación</Text>*
 <br>
 <br>
+Elaboraremos la escena para el Detalle de Ubicaciones donde se desea mostrar un pequeño mapa que muestre la ubicación de la sede seleccionada seguido de su dirección e información de contacto.
 
-<br>
+Recibe los siguientes parámetros al ser invocada:
+
+- coords: Variable con los atributos latitude, longitude.
+- coords.latitude: Valor de la latitud.
+- coords.longitude: Valor de la longitud.
+- contact: Variable con los atributos gerente, móvil, fijo.
+- contact.gerente: Valor del Nombre del gerente.
+- contact.movil: Valor del numero del teléfono móvil de la sede.
+- contact.fijo: Valor del numero de teléfono de la sede.
+
+Nuevamente, al ser una escena, tendremos que definir la barra de navegación como hicimos en la escena MenuDetail con un BackButton que nos permita regresar a donde estábamos antes de invocar la escena MenuDetail para esto se utiliza la acción "Actions.pop()" que deshace la ultima actividad hecha con Flux. Al igual que en MenuBar usaremos el componente Image para contener los elementos de la pantalla y colocar al mismo tiempo la imagen de fondo.
+
+```
+import React, { Component } from 'react';
+import { View,ScrollView, Text, Image, TouchableOpacity } from 'react-native';
+import styles from './styles/LocationDetail_Style';
+import { Actions } from 'react-native-router-flux';
+import MapView from 'react-native-maps';
+
+export default class LocationDetail extends Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      region: {
+        latitude: this.props.coords.latitude,
+        longitude: this.props.coords.longitude,
+        latitudeDelta: 0.0015,
+        longitudeDelta: 0.0015,
+      }
+    }
+  }
+
+  render() {
+  return (
+    <Image style={styles.bg} source={require('./resources/6_BG/bg2.png')} >
+      <View style={styles.container_title} >
+          <TouchableOpacity style={styles.menu_icon} onPress={() => 
+                    Actions.pop()
+                  }>
+            <Image style={styles.menu_icon} source={require('./resources/1_Icons/recursos-10.png')} />
+          </TouchableOpacity>
+          <Text style={styles.page_title}>como llegar</Text>       
+      </View>
+      
+      <View style ={styles.container}>
+        <MapView
+          style={styles.map}
+          region={this.state.region}
+          onRegionChange={(region)=> this.setState({region})} >
+          <MapView.Marker
+              coordinate={this.props.coords}
+              image={require('./resources/1_Icons/recursos-33.png')}/>
+        </MapView>
+      </View>
+      <View style={styles.inf_container}>
+        <Text style={styles.text_title}>Dirección: </Text>
+        <Text style={styles.text}>{this.props.dir} </Text>
+      </View>
+      <View style={styles.inf_container}>
+        <Text style={styles.text_title}>Información de Contacto: </Text>
+        <View style={styles.row}>
+          <Text style={styles.text_subtitle}>Gerente: </Text>
+          <Text style={styles.text}>{this.props.contact.gerente}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.text_subtitle}>Oficina: </Text>
+          <Text style={styles.text}>{this.props.contact.fijo} </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.text_subtitle}>Móvil: </Text>
+          <Text style={styles.text}>{this.props.contact.movil} </Text>
+        </View>
+      </View>
+    </Image>
+  );
+}
+}
+```
+----------------------------------------------------------------------------
+
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.9. Desarrollo de la Pantalla de Contacto</Text>*
 <br>
 <br>
 
-<br>
+La elaboración de esta pantalla se basa en mostrar un acordeón de con dos cabeceras que muestren la información de contacto de la sede principal (primera cabecera) y de una sede seleccionada (segunda cabecera).
+
+Primero, trabajaremos en el contenido del acordeón que se basa en mostrar la información de contacto y habilitar un botón que al ser presionado invoque el formulario para enviar un mensaje.
+
+Creamos el archivo Contact_container.js
+
+```
+  touch app/components/Contact_container.js
+```
+
+El componente contiene los siguientes props al ser instanciado:
+
+- gerente: Nombre del Gerente
+- movil: Número de teléfono móvil
+- fijo: Número de teléfono de la oficina
+
+Elaboramos el diseño del componente, un contenedor que engloba los textos a mostrar y un botón que al ser presionado llame a la función changeView que invoca la escena ContactForm.
+
+```
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import styles from './styles/CC_style';
+import { Actions } from 'react-native-router-flux';
+
+export default class Contact_container extends Component {
+  changeView (infor) {
+      Actions.ContactForm({info: infor})
+  }
+  
+  render() {
+  return (      
+      <View style={styles.inf_container}>
+        <View style={styles.row}>
+          <Text style={styles.text_subtitle}>Gerente: </Text>
+          <Text style={styles.text}>{this.props.gerente}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.text_subtitle}>Oficina: </Text>
+          <Text style={styles.text}>{this.props.fijo} </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.text_subtitle}>Móvil: </Text>
+          <Text style={styles.text}>{this.props.movil} </Text>
+        </View>
+        <TouchableOpacity style={styles.bottom_b} onPress={() => this.changeView('props')}>
+          <Text style={styles.bottom_b_text}>Contactar</Text>
+        </TouchableOpacity>
+      </View>
+  );
+}
+}
+```
+
+Estamos invocando a la escena ContactForm que aun no ha sido definida por lo que procemos a crear el archivo ContatForm.js
+
+```
+  touch ContactForm.js
+```
+
+E incorporamos la escena en el Router
+
+```
+import React, { Component } from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+import {AppRegistry} from 'react-native';
+import MenuBar from './app/components/MenuBar';
+import MenuDetail from './app/components/MenuDetail';
+import LocationDetail from './app/components/LocationDetail';
+import ContactForm from './app/components/ContactForm';
+
+export default class LosGorditosPlus extends Component {
+  render() {
+    return (
+      <Router>
+        <Scene key="root" hideNavBar>
+          <Scene key="MenuBar" component={MenuBar} initial={true} />
+          <Scene key="MenuDetail" component={MenuDetail} />
+          <Scene key="LocationDetail" component={LocationDetail} />
+          <Scene key="ContactForm" component={ContactForm}>
+        </Scene>
+      </Router>
+    )
+  }
+}
+AppRegistry.registerComponent('LosGorditosPlus', () => LosGorditosPlus);
+```
+
+Regresamos a nuestra pantalla de contacto e importamos el componente
+
+```
+import Contact_container from './app/components/Contact_container';
+```
+
+Ahora trabajaremos en la selección de la sede en la segunda cabecera, definiremos en el estado de nuestra clase los siguientes atributos:
+
+- title: Titulo de la sede que se muestra en el header del componente Accordion.
+- selected: Número de la sede seleccionada, se utiliza para setear la posición del array fake_data.
+- show: Controla el contenido a mostrar cuando se abra la cabecera del acordeón en la selección de la sede.
+
+De esta manera pasaremos como titulo de la cabecera el valor del estado "title" así le indicaremos al usuario la sede seleccionada, además, se le definirá la función onPress para que al presionar el texto en la cabecera cambie el contenido de esta cambiando el valor del atributo "show". Para la selección de la sede utilizaremos el componente Text mostrando el nombre de la zona en la que están ubicadas y cuando sea presionado actualizaremos los atributos del estado y se mostrara el componente Contact_container con la respectiva información.
+
+Declaramos nuestra variable SECTIONS con el contenido a ser pasado al componente Accordion, se tendrá una variable fake_data que contendrá la información de contacto.
+
+```
+const SECTIONS = [
+  {
+    title:  <Text style={ styles.headerText}>General</Text>,
+    content: <Contact_container gerente={fake_data[0].gerente} fijo={fake_data[0].fijo} movil={fake_data[0].movil}/>,
+  },
+  {
+    title: <TouchableOpacity onPress={()=> {
+              this.setState({show: false})
+            }}>
+              <Text style={ styles.headerText}>{this.state.title}</Text>
+            </TouchableOpacity>,
+    content: this.state.show ? 
+      <Contact_container gerente={fake_data[this.state.selected].gerente} fijo={fake_data[this.state.selected].fijo} movil={fake_data[this.state.selected].movil}/> 
+      : 
+      <View>
+        <TouchableOpacity onPress={()=>{
+          this.setState({title: 'Altamira', selected: 0, show: true})
+          }}>
+          <Text style={styles.text}>{fake_data[0].location}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          this.setState({title: 'Carrizal', selected: 2, show: true}) 
+          }}>
+          <Text style={styles.text}>{fake_data[2].location}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          this.setState({title: 'La Castellana', selected: 1, show: true}) 
+          }}>
+          <Text style={styles.text}>{fake_data[1].location}</Text>
+        </TouchableOpacity>          
+      </View>,
+  },
+];
+```
+
+Como nuestra variable SECTIONS utiliza los estados de la clase esta debe ser definida dentro del render de la clase.
+
+
+```
+import React, { Component } from 'react';
+import { View,ScrollView, Text, Image, TouchableOpacity } from 'react-native';
+import styles from './styles/Contact_style';
+import Accordion from 'react-native-collapsible/Accordion';
+import Contact_container from './Contact_container';
+
+export default class Contact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: 'Selección de Sede',
+      selected: 0,
+      show: false
+    };
+  }
+
+  _renderHeader(section, index, isActive) {
+    return (
+      <View style={isActive ? styles.header_on : styles.header_off}>
+        {section.title}
+        <Image style={styles.buttom} source={ isActive ? require('./resources/1_Icons/recursos-11.png') : require('./resources/1_Icons/recursos-12.png')}/>
+      </View>
+    );
+  }
+
+  _renderContent(section) {
+    return (
+      <View style={styles.header_off}>
+        {section.content}
+      </View>
+    );
+  }
+
+  render() {
+    const SECTIONS = [
+      ...
+    ];
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.accordion}>
+          <Accordion
+            underlayColor='white'
+            sections={SECTIONS}
+            renderHeader={this._renderHeader}
+            renderContent={this._renderContent} />          
+        </View>
+      </View>  
+    );
+  }
+}
+```
+----------------------------------------------------------------------------
+
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.10. Desarrollo de la Pantalla para Contactar</Text>*
 <br>
 <br>
 
-<br>
+Finalmente, elaboramos la ultima escena de nuestra aplicación ContactForm.
+
+Consta de un formulario donde indicaremos al usuario que coloque su Nombre, email y el cuerpo del mensaje.
+
+Para permitir al usuario insertar texto utilizaremos el componente TextInput el cual requiere de la declaración de los atributos en el estado de clase a ser mostrados para actualizar el contenido insertado.
+
+Al ser una escena, tendremos que definir la barra de navegación como hicimos en la escena MenuDetail con un BackButton que nos permita regresar a donde estábamos antes de invocar la escena MenuDetail para esto se utiliza la acción "Actions.pop()" que deshace la ultima actividad hecha con Flux. Al igual que en MenuBar usaremos el componente Image para contener los elementos de la pantalla y colocar al mismo tiempo la imagen de fondo.
+
+```
+import React, { Component } from 'react';
+import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+import styles from './styles/ContactForm_style';
+import { Actions } from 'react-native-router-flux';
+
+export default class ContactForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nombre: 'Nombre',
+      email: 'email',
+      mensaje: 'Mensaje ...'
+    };
+  }
+
+  render() {
+  return (      
+   <Image style={styles.bg} source={require('./resources/6_BG/bg2.png')} >
+      <View style={styles.container_title} >
+          <TouchableOpacity style={styles.menu_icon} onPress={() =>
+              Actions.pop()
+          }>
+            <Image style={styles.menu_icon} source={require('./resources/1_Icons/recursos-10.png')} />
+          </TouchableOpacity>
+          <Text style={styles.page_title}>contactar</Text>       
+      </View>
+      
+      <View style ={styles.container}> 
+        <View style={styles.label}>
+          <TextInput maxLength = {60}
+            style={styles.text_input_a}
+            onChangeText={(nombre) => this.setState({nombre})} 
+            value={ this.state.nombre }/>
+        </View>
+
+        <View style={styles.label}>
+         <TextInput maxLength = {60}
+          keyboardType="email-address"
+          style={styles.text_input_a} 
+          onChangeText={(email) => this.setState({email})} 
+          value={this.state.email}/>
+        </View>
+
+        <View style={styles.label_b}>
+          <TextInput 
+            multiline = {true}
+            maxLength = {300}
+            style={styles.text_input_b} 
+            onChangeText={(mensaje) => this.setState({mensaje})} 
+            value={this.state.mensaje}/>
+        </View>
+
+        <TouchableOpacity style={styles.bottom_b} onPress={()=> {
+          this.setState({nombre: 'Nombre', email: 'email', mensaje: 'Mensaje ...'});
+          alert('Mensaje Enviado')}}>
+          <Text style={styles.bottom_b_text}>Enviar</Text>
+        </TouchableOpacity>
+
+      </View>
+
+    </Image>
+  );
+}
+}
+```
+----------------------------------------------------------------------------
+
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.11. Desarrollo del Splash para el inicio de la aplicación</Text>*
 <br>
 <br>
 
-<br>
+Una vez instalada y configurada nuestra librería procedemos a importar el Splash en el index de la aplicación.
+
+```
+import SplashScreen from '@remobile/react-native-splashscreen';
+```
+
+Trabajaremos con la función componentDidMount para indicar cuando ocultar el Splash, esta es una función por defecto de reactnative que se ejecuta cuando se finaliza el renderizado del componente, utilizando el método hide() del SplashScreen.
+
+```
+export default class LosGorditosPlus extends Component {
+  
+  componentDidMount () {
+    SplashScreen.hide()
+  }
+  
+  render() {
+  ...
+```
+
+
+----------------------------------------------------------------------------
+
 <br>
 *<Text style="text-decoration: underline; margin: 15px;"> 3.12. Instalación en el dispositivo</Text>*
 <br>
 <br>	 
-
+----------------------------------------------------------------------------
 	  
 
 	 
