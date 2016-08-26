@@ -54,7 +54,9 @@ class MenuList extends Component {
       Actions.MenuDetail({plato: data})
     }
     else {
-      Actions.MenuDetail({plato: data})
+      // Funcion Flux para refrescar el contexto y pasamos los props page_title, selected_page para 
+      // actualizar la navegacion del MenuBar para renderizar la pantalla de contacto
+      Actions.refresh({page_title: 'contacto', selected_page: 2})
     }
   }
 

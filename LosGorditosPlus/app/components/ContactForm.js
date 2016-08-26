@@ -21,7 +21,7 @@ export default class ContactForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nombre: 'Nombre',
+      nombre: '123',
       email: 'email',
       mensaje: 'Mensaje ...'
     };
@@ -46,7 +46,7 @@ export default class ContactForm extends Component {
           <TextInput maxLength = {60}
             style={styles.text_input_a} 
             onChangeText={(nombre) => this.setState({nombre})} 
-            value={this.state.nombre}/>
+            value={ this.state.nombre }/>
         </View>
         <View style={styles.label}>
          <TextInput maxLength = {60}

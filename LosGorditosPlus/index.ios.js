@@ -7,6 +7,7 @@ import MenuBar from './app/components/MenuBar';
 import MenuDetail from './app/components/MenuDetail';
 import LocationDetail from './app/components/LocationDetail';
 import ContactForm from './app/components/ContactForm';
+import SplashScreen from '@remobile/react-native-splashscreen';
 
 /**
  * Clase: LosGorditosPlus
@@ -16,6 +17,11 @@ import ContactForm from './app/components/ContactForm';
  */
 
 export default class LosGorditosPlus extends Component {
+  
+  componentDidMount () {
+    SplashScreen.hide()
+  }
+  
   render() {
   /*
    Instanciación del componente Router de la Libreria Flux

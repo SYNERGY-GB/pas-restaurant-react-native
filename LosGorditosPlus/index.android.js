@@ -7,6 +7,7 @@ import MenuBar from './app/components/MenuBar';
 import MenuDetail from './app/components/MenuDetail';
 import LocationDetail from './app/components/LocationDetail';
 import ContactForm from './app/components/ContactForm';
+import SplashScreen from '@remobile/react-native-splashscreen';
 
 /**
  * Clase: LosGorditosPlus
@@ -16,20 +17,23 @@ import ContactForm from './app/components/ContactForm';
  */
 
 export default class LosGorditosPlus extends Component {
+  
+  componentDidMount () {
+    SplashScreen.hide()
+  }
+  
   render() {
+  /*
+   Instanciación del componente Router de la Libreria Flux
+   Conjunto de Scenas a mostrar, indicando la raiz y la posicion inicial 
+   props:
+       hideNavBar: Oculta la bara de navegación
+       initial: Establece cual es la primera escena a mostrar
+       key: Llave de acceso por la cual se invoca la escena
+       component: Componente a instanciar
+  */
     return (
-      /**
-      * Instanciación del componente Router de la Libreria Flux
-      */
-
       <Router>
-        /** Conjunto de Scenas a mostrar, indicando la raiz y la posicion inicial 
-        * Props:
-        *     hideNavBar: Oculta la bara de navegación
-        *     initial: Establece cual es la primera escena a mostrar
-        *     key: Llave de acceso por la cual se invoca la escena
-        *     component: Componente a instanciar
-        */
         <Scene key="root" hideNavBar>
           <Scene key="MenuBar" component={MenuBar} initial={true} />
           <Scene key="MenuDetail" component={MenuDetail} />

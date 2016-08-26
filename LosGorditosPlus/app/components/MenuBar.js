@@ -11,6 +11,7 @@ import MenuView from './MenuView';
 import Location from './Location';
 import About from './About';
 import Contact from './Contact';
+import DrawerContent from './DrawerContent';
 import Drawer from 'react-native-drawer';
 import styles from './styles/MenuBar_style';
 import { Actions } from 'react-native-router-flux';
@@ -67,73 +68,7 @@ class MenuBar extends Component {
           type="overlay"
           // Contenido a mostrar en el Menu
           content={
-            <Image style={styles.containerMenu} source={require('./resources/menu.png')}>
-              <TouchableOpacity style={styles.menu_icon} onPress={()=>{
-                this._drawer.close()
-              }}>
-                <Image style={styles.menu_icon} source={require('./resources/1_Icons/recursos-01.png')} />
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.first_button} onPress={()=>{
-                Actions.refresh({page_title: null, bg: false, ts: false, selected_page: 0}) ;
-                this._drawer.close()
-              }}>
-                <View style={styles.button_align}>
-                  <Image style={styles.img_buttom} source={require('./resources/1_Icons/recursos-02.png')} />
-                  <Text style={styles.menu_title}> menu </Text>
-                  {this.props.selected_page === 0 ? 
-                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
-                    : 
-                    this.props.selected_page === 4 ? 
-                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
-                    : 
-                    <Text/>}
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.button} onPress={()=>{
-                Actions.refresh({page_title: 'información', bg: true, ts: true, selected_page: 1}) ;
-                this._drawer.close()
-                }}>
-                <View style={styles.button_align}>
-                  <Image style={styles.img_buttom} source={require('./resources/1_Icons/recursos-03.png')} />
-                  <Text style={styles.menu_title}> información </Text>
-                  {this.props.selected_page ===1 ? 
-                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
-                    : 
-                    <Text/>}
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.button} onPress={()=>{
-                Actions.refresh({page_title: 'contacto', bg: true, ts: true, selected_page: 2}) ;
-                this._drawer.close()
-                }}>
-                <View style={styles.button_align}>
-                  <Image style={styles.img_buttom_2} source={require('./resources/1_Icons/recursos-04.png')} />
-                  <Text style={styles.menu_title}> contactar </Text>
-                  {this.props.selected_page ===2 ? 
-                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
-                    : 
-                    <Text/>}
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.button} onPress={()=>{
-                Actions.refresh({page_title: 'ubicaciones', bg: true, ts: true, selected_page: 3}) ;
-                this._drawer.close()
-                }}>
-                  <View style={styles.button_align}>
-                    <Image style={styles.img_buttom_3} source={require('./resources/1_Icons/recursos-05.png')} />
-                    <Text style={styles.menu_title}> ubicaciones </Text>
-                    {this.props.selected_page ===3 ? 
-                    <Image style={styles.img_buttom_4} source={require('./resources/1_Icons/recursos-06.png')} />
-                    : 
-                    <Text/>}
-                  </View>
-              </TouchableOpacity>
-              <Image style={styles.menu_logo}source={require('./resources/3_Logos/menu_logo.png')}/>
-            </Image>
+            <DrawerContent onClose={this.closeDrawer} selected_page={this.props.selected_page}/>
           }
           acceptDoubleTap
           onOpen={() => {

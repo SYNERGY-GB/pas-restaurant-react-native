@@ -56,7 +56,7 @@ class TabMenuList extends Component {
                     //Accion para refrescar el contexto actual y cambiar el valor de los props page_title y selectedTab
                     Actions.refresh({page_title: 'favoritos', selectedTab: 0})
                   }>
-          {<View/>}
+          <MenuList fake_data={fake_data0}/>
         </TabNavigator.Item>
 
         <TabNavigator.Item
@@ -67,7 +67,7 @@ class TabMenuList extends Component {
                     //Accion para refrescar el contexto actual y cambiar el valor de los props page_title y selectedTab
                     Actions.refresh({page_title: 'principales', selectedTab: 1})
                   }>
-          {<View />}
+          <MenuList fake_data={fake_data1}/>
         </TabNavigator.Item>
 
         <TabNavigator.Item
@@ -79,7 +79,7 @@ class TabMenuList extends Component {
                     Actions.refresh({page_title: 'ensaladas', selectedTab: 2})
                   }
           >
-          {<View/>}
+          <MenuList fake_data={fake_data2}/>
         </TabNavigator.Item>
 
         <TabNavigator.Item
@@ -91,7 +91,7 @@ class TabMenuList extends Component {
                     Actions.refresh({page_title: 'postres', selectedTab: 3})
                   }
         >
-          {<View/>}
+          <MenuList fake_data={fake_data3}/>
         </TabNavigator.Item>
 
         <TabNavigator.Item
@@ -103,46 +103,9 @@ class TabMenuList extends Component {
                     Actions.refresh({page_title: 'bebidas', selectedTab: 4})
                 }
          >
-          {<View />}
+          { <MenuList selectedTab={this.props.selectedTab} fake_data={fake_data4}/> }
         </TabNavigator.Item>
       </TabNavigator>
-      {
-        // Evaluamos el valor del props SelectedTab para indicar que carge la lista de platos con la informacion
-        // correspondiente a la categoria seleccionada
-        // Nota: Al no estar actualizando el Estado de la Clase MenuList es necesario mandar a renderizar
-        // componentes vacios en distintas posiciones para que refresque la lista
-        (() => {
-        switch (this.props.selectedTab) {
-          case 0: return <View >
-                            <View/>
-                            <MenuList selectedTab={this.props.selectedTab} fake_data={fake_data0}/>
-                            <View />
-                            <View />
-                          </View>;
-          case 1: return <View>
-                            <View />
-                            <View />
-                            <MenuList selectedTab={this.props.selectedTab} fake_data={fake_data1}/>
-                          </View>;
-          case 2: return <View>
-                            <View />
-                            <View />
-                            <View />
-                            <MenuList selectedTab={this.props.selectedTab} fake_data={fake_data2}/>
-                          </View>;
-          case 3: return <View>
-                            <View />
-                            <View />
-                            <View />
-                            <View />
-                            <View />
-                            <MenuList selectedTab={this.props.selectedTab} fake_data={fake_data3}/>
-                          </View>;
-          case 4: return <View><MenuList selectedTab={this.props.selectedTab} fake_data={fake_data4}/></View>;
-          default: return <MenuList selectedTab={this.props.selectedTab} fake_data={fake_data0}/>;
-        }
-      })()}
-      
     </View>
       );
   }
