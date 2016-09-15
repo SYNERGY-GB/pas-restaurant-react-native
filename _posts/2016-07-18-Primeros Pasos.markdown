@@ -24,9 +24,9 @@ Abrimos el terminal o consola y nos dirigimos al directorio donde queremos crear
 
  Si nos dirigimos adentro de la carpeta de la aplicación podremos ver la estructura que ha montado el framework
  
-{:refdef: style="text-align: center;"}
-![Archivos_Iniciales](/pas-restaurant-react-native/Images/Archivos_Iniciales.png)
-{: refdef}
+<img style="display: block;
+    margin-left: auto;
+    margin-right: auto;" src="{{site.url}}/Images/Archivos_Iniciales.png">
 
  - Android: Contiene la información para compilar y ejecutar en Android.
  - iOS: Contiene la información para compilar y ejecutar en iOS.
@@ -43,9 +43,9 @@ Para correr la aplicación en nuestro emulador nos colocamos dentro de la carpet
   (Para Android)
     react-native run-android
 
-{:refdef: style="text-align: center;"}
-![Archivos_Iniciales](/pas-restaurant-react-native/Images/Primera_Vista.png)
-{: refdef}
+<img style="display: block;
+    margin-left: auto;
+    margin-right: auto;" src="{{site.url}}/Images/Primera_Vista.png">
 
 Habilitamos la opción para "Hot Reloading" para editar los archivos y ver los cambios que se producen, nos dirigimos al dispositivo y procedemos a presionar ⌘+D (iOS) o la tecla de Menú del dispositivo (Android).
 
