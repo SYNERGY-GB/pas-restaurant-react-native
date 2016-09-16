@@ -21,8 +21,8 @@ export default class ContactForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nombre: '123',
-      email: 'email',
+      nombre: 'Nombre ...',
+      email: 'email ...',
       mensaje: 'Mensaje ...'
     };
   }

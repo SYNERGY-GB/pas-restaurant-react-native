@@ -30,7 +30,8 @@ module.exports = StyleSheet.create({
   },
   container_title: {
     flexDirection: 'row',
-    height: W_height*0.085,
+    paddingTop:10,
+    height: W_height*0.095,
     backgroundColor: '#ffc300',
   },
   container: {
