@@ -10,15 +10,43 @@ Es un framework de desarrollo móvil nativo (iOS, Android) elaborado por Faceboo
 
 ***Características:***
 
- - Esta basado en la librería javascript [React.js](https://facebook.github.io/react/)
-	- Mantiene la velocidad de renderizado de vistas por medio del Virtual DOM que genera React para marcar los elementos que han sufrido algún cambio para renderizar solo estos en lugar del componente entero.
-	- Uso de componentes.
- - Compatibilidad con las sintaxis de javascript [ECMAScript](https://tc39.github.io/ecma262/) ES5, ES6 y con [JVx - Enterprise Application Framework](http://www.sibvisions.com/jvx)
- - Corre en una instancia incrustada en el JavaScript Core dentro de la aplicación.
- - Diseño orientado a componentes y a la arquitectura [Model View View-Model (MVVM)](https://msdn.microsoft.com/en-us/library/hh848246.aspx)
- - Se considera un framework ligero
- - Similar a Java y Objective-C
+- Basado en React.
+- Corre en una instancia incrustada en el JavaScript Core dentro de la aplicación.
+- Se considera un framework ligero.
+- Similar a Java y Objective-C.
+- Basado en la elaboración y reutilización de componentes.
+- Fácil de implementar.
+- Estructura MVVM.
 
+***Documentación:***
+
+- El soporte dado por Facebook no es muy activo, su portal web otorga información básica de ReactNative.
+- La comunidad es muy activa y en crecimiento.
+- La mayoría de las librerías son ofrecidas por la comunidad.
+
+***Desempeño***
+
+- Manejo estados en los componentes.
+- Utiliza un Virtual DOM para comparar los cambios de estados de los componentes entre el VDOM y el DOM.
+- Ante un cambio no recarga el componente per se sino la sección que presenta un cambio.
+- Reutilización de componentes.
+- Crea componentes "nativos".
+
+***Integración del Código***
+
+- Uso de los Props para el manejo de parámetros entre componentes.
+- Componentes propios para las plataformas iOS y Android.
+- Se puede indicar acciones según la plataforma en que se encuentre la app.
+- Con el uso de props se pueden modificar los componentes.
+- Se importan los componentes a utilizar.
+- Se debe manejar el renderizado de la orientación
+
+***Incidencias***
+
+- Depende de la Comunidad.
+- Las librerías al ser elaboradas por terceros, no hay garantía de su funcionalidad o compatibilidad con otros componentes.
+- "Bugs" en la compatibilidad iOS/Android.
+- La librería de dimensiones no funciona correctamente en Android.
 
 
 ***Conceptos base:***
