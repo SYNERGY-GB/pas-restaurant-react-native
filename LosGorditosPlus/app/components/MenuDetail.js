@@ -38,7 +38,7 @@ export default class MenuDetail extends Component {
             <Text style={styles.price}>{this.props.plato.price}</Text>     
           </View>
           <View>
-            <Image style={styles.img_rank} source={require('./resources/1_Icons/recursos-08.png')}/>  
+            <Image style={styles.img_rank} source={this.props.plato.rank}/>  
             <Image style={styles.img_share} source={require('./resources/1_Icons/recursos-28.png')}/>          
           </View> 
         </View>

@@ -68,7 +68,7 @@ class MenuList extends Component {
   */
   renderMenu(data){
     return (
-      data.last ? <View style={styles.img}/> :
+      data.last ? <View style={styles.last}/> :
       <View style={styles.containerMenu}>
         <Image style={styles.img} source={data.img}/>
         <View style={styles.bg}>
@@ -90,7 +90,7 @@ class MenuList extends Component {
           </View>
           <View style={styles.rowStyle}>
             <Text style={styles.price}>{data.price}</Text>
-            <Image style={styles.img_menu} source={require('./resources/1_Icons/recursos-08.png')}/>
+            <Image style={styles.img_rank} source={data.rank}/>
           </View>
         </View>
       </View>

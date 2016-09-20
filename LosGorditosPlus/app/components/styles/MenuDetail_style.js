@@ -63,8 +63,8 @@ module.exports = StyleSheet.create({
     padding: 3,
   },
   img_rank: {
-    width: W_width*0.055, 
-    height: W_height*0.03,
+    width: W_width*0.25, 
+    height: W_height*0.02,
     position: 'absolute',
     right: 12,
   },
@@ -87,6 +87,7 @@ module.exports = StyleSheet.create({
     borderColor: '#ffc300',
     marginTop: 5,
     marginRight: 3,
+    padding: 2,
     flex: 0.5,
   },
   bottom_a_text: {
@@ -99,12 +100,14 @@ module.exports = StyleSheet.create({
     backgroundColor: '#ffc300',
     marginTop: 5,
     marginLeft: 3,
+    padding: 2,
     flex: .5,
   },
   bottom_b_text: {
     fontSize: 20,
     textAlign: 'center',
     paddingTop: 3,
+    color: '#ffffff',
   },
   description: {
     fontSize: 15,
