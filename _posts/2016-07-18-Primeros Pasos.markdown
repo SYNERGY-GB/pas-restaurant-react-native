@@ -16,7 +16,7 @@ Se puede utilizar cualquier editor de texto para el desarrollo de la aplicación
 
 Abrimos el terminal o consola y nos dirigimos al directorio donde queremos crear la aplicación y ejecutamos el siguiente comando:
 
-``
+```
   react-native init MyAppName
 
   cd MyAppName
