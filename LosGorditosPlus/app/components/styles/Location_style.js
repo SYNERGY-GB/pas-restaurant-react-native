@@ -26,6 +26,11 @@ module.exports = StyleSheet.create({
     backgroundColor: '#ffc300',
     width: W_width,
   },
+  label_map: {
+    opacity: 0.1,
+    width: W_width,
+    height: W_height,
+  },
   text: {
   	fontSize: 18,
     padding: 5,

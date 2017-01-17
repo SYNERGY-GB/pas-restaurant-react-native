@@ -8,14 +8,22 @@ const W_height = Dimensions.get('window').height;
 const W_width = Dimensions.get('window').width;
 
 module.exports = StyleSheet.create({
+  container: {
+    height: W_height,
+    width: W_width,
+  },
   containerMenu: {
     flex: 1,
     width: W_width, 
-    marginTop: 4,
+    marginTop: 1,
+    padding: 3,
   },
   img:{
-    width: W_width, 
+    width: W_width*0.98047, 
     height: W_height*0.22,
+  },
+  last:{
+    height: W_height*0.5,
   },
   bg: {
     backgroundColor: 'gray',
@@ -26,13 +34,19 @@ module.exports = StyleSheet.create({
     marginTop: 1,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white',
   },
   img_menu: {
     width: W_width*0.065, 
     height: W_height*0.04,
+    position: 'absolute',
+    right: 3,
+  },
+  img_rank: {
+    width: W_width*0.40, 
+    height: W_height*0.03,
     position: 'absolute',
     right: 3,
   },

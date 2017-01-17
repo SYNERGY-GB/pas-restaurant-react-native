@@ -4,7 +4,32 @@ import styles from './styles/LocationDetail_Style';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
 
+/**
+* Clase: LocationDetail
+* Pantalla secundaria de Ubicacion
+* 
+* Objetivo: Muestra en un mapa la geolocalizacion de una sede, su direccion e informacion de contacto
+*/
+
 export default class LocationDetail extends Component {
+
+  /**
+  * Constructor de la Clase
+  * state: 
+  *        region: Variable con los atributos latitude, longitude, latitudeDelta, longitudeDelta
+  *        region.latitude: Latitud de la region
+  *        region.longitude: Longitud de la posicion
+  *        region.latitudeDelta: Valor entre 0 y 1 para indicar el zoom de la latitud
+  *        region.longitudeDelta: Valor entre 0 y 1 para indicar el zoom de la longitud
+  * props:
+  *        coords: Variable con los atributos latitude, longitude
+  *        coords.latitude: Valor de la latitud
+  *        coords.longitude: Valor de la longitud
+  *        contact: Variable con los atributos gerente, movil, fijo
+  *        contact.gerente: Valor del Nombre del gerente
+  *        contact.movil: Valor del numero del telefono movil de la sede
+  *        contact.fijo: Valor del numero de telefono de la sede
+  */
   constructor(props){
     super(props);
     this.state={
@@ -16,20 +41,13 @@ export default class LocationDetail extends Component {
       }
     }
   }
-  centerOnUser(){
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.refs.map.refs.node.animateToCoordinate(position.coords)
-      },
-      (error) => alert(error.message),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-  }
+
   render() {
   return (
   	<Image style={styles.bg} source={require('./resources/6_BG/bg2.png')} >
 	    <View style={styles.container_title} >
 	        <TouchableOpacity style={styles.menu_icon} onPress={() => 
+                    // Deshacer la ultima accion flux
                     Actions.pop()
                   }>
 	          <Image style={styles.menu_icon} source={require('./resources/1_Icons/recursos-10.png')} />
@@ -38,19 +56,22 @@ export default class LocationDetail extends Component {
      	</View>
       
       <View style ={styles.container}>
-    
-        <MapView.Animated
-          ref="map"
-          showsUserLocation={true}
-          followsUserLocation={true}
+      
+        <MapView
           style={styles.map}
+          // Region de la Geolocalizacion a mostrar
           region={this.state.region}
+          // Funcion para seguir el movimiento del mapa actualizando la region a mostrar
           onRegionChange={(region)=> this.setState({region})} >
+          {            
+            // Colocar una marca en el mapa
+            // Props: coordinate: Valor de las coordenadas (latitud y longitud)
+            //        image: Diseno de la marca
+          }
           <MapView.Marker
               coordinate={this.props.coords}
-              image={require('./resources/1_Icons/recursos-33.png')}
-              onPress={()=> this.centerOnUser()}/>
-        </MapView.Animated>
+              image={require('./resources/1_Icons/recursos-33.png')}/>
+        </MapView>
       </View>
       <View style={styles.inf_container}>
         <Text style={styles.text_title}>Dirección: </Text>

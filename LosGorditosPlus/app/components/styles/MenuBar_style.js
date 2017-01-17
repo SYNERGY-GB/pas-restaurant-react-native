@@ -12,6 +12,7 @@ module.exports = StyleSheet.create({
     flex: 1,
     width: W_width*0.65, 
     height: W_height,
+    paddingTop: 10,
   },
   button: {
     flexDirection: 'row',
@@ -22,6 +23,7 @@ module.exports = StyleSheet.create({
     padding: 10,
   },
   menu_icon: {
+    paddingTop: 10,
     padding: 10,
     paddingLeft: 5,
     width: W_width*0.08,
@@ -29,12 +31,14 @@ module.exports = StyleSheet.create({
   },
   container_title: {
     flexDirection: 'row',
-    height: W_height*0.085,
+    paddingTop: 10,
+    height: W_height*0.095,
     backgroundColor: '#ffc300',
   },
   container_title_b: {
     flexDirection: 'row',
-    height: W_height*0.085,
+    paddingTop: 10,
+    height: W_height*0.095,
   },
   first_button: {
     padding: 10,
@@ -71,6 +75,13 @@ module.exports = StyleSheet.create({
     width: W_width*0.06, 
     height: W_height*0.06,
   },
+  img_buttom_4: {
+    width: W_width*0.03, 
+    height: W_height*0.02,
+    position: 'absolute',
+    right: 0,
+    marginTop: 13,
+  },
   menu_title: {
     fontSize: 19,
     marginLeft: 5,
@@ -79,9 +90,9 @@ module.exports = StyleSheet.create({
   },
   button_align: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+
   },
   menu_logo: {
     width: W_width*0.55, 
