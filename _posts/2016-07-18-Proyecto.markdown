@@ -59,7 +59,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="{{site.url site.baseurl}}/Images/Pantalla_categorias.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_categorias.png"> </td>
     <td>
       Pantalla de Presentación de Categorías
       <br>
