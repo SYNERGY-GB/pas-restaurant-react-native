@@ -37,7 +37,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
 
 <img style="display: block;
     margin-left: auto;
-    margin-right: auto;" src="../Images/MVVM.png">
+    margin-right: auto;" src="eppisapia.github.io/pas-restaurant-react-native/Images/MVVM.png">
 
 <br>
 <br>
@@ -46,7 +46,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
 
 <table style="width:100%">
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_menu.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_menu.png"> </td>
     <td>
       Vista del Menú
       <br>
@@ -69,7 +69,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_platos.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_platos.png"> </td>
     <td>
       Pantalla de Lista de Platos 
       <br>
@@ -81,7 +81,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_detalle_p.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_detalle_p.png"> </td>
     <td>
       Pantalla de Detalle del Plato
       <br>
@@ -93,7 +93,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_informacion.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_informacion.png"> </td>
     <td>
       Pantalla de Información
       <br>
@@ -107,7 +107,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_ubicacion.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_ubicacion.png"> </td>
     <td>
       Pantalla de Ubicación
       <br>
@@ -117,7 +117,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_comollegar.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_comollegar.png"> </td>
     <td>
       Pantalla de Detalle de Ubicación
       <br>
@@ -129,7 +129,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_contacto.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_contacto.png"> </td>
     <td>
       Pantalla de Contacto
       <br>
@@ -141,7 +141,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_contactar.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_contactar.png"> </td>
     <td>
       Pantalla para Contactar
       <br>
@@ -153,7 +153,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patrón de dise�
   </tr>
 
   <tr>
-    <td><img height="350" width="400" src="../Images/Pantalla_inicio.png"> </td>
+    <td><img height="350" width="400" src="eppisapia.github.io/pas-restaurant-react-native/Images/Pantalla_inicio.png"> </td>
     <td>
       Splash para el inicio de la aplicación
       <br>
