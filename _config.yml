@@ -12,8 +12,8 @@ description: > # this means to ignore newlines until "baseurl:"
   En la presente página se busca introducir el Framework de desarrollo móvil React Native,
   ilustrando la elaboración de una aplicación para familiarizar a los desarrolladores
   con el framework.
-baseurl: "/pas-restaurant-react-native" # the subpath of your site, e.g. /blog
-url: "http://eppisapia.github.com" # the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
 twitter_username: 
 github_username:  eppisapia
 
