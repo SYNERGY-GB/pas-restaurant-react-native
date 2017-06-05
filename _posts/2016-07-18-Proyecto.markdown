@@ -37,7 +37,7 @@ Las aplicaciones elaboradas con ReactNative tienden a seguir el patr√≥n de dise√
 
 <img style="display: block;
     margin-left: auto;
-    margin-right: auto;" src="eppisapia.github.io/pas-restaurant-react-native/Images/MVVM.png">
+    margin-right: auto;" src="http://eppisapia.github.io/pas-restaurant-react-native/Images/MVVM.png">
 
 <br>
 <br>
