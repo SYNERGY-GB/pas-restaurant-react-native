@@ -26,7 +26,7 @@ Abrimos el terminal o consola y nos dirigimos al directorio donde queremos crear
  
 <img style="display: block;
     margin-left: auto;
-    margin-right: auto;" src="eppisapia.github.io/pas-restaurant-react-native/Images/Archivos_Iniciales.png">
+    margin-right: auto;" src="../Images/Archivos_Iniciales.png">
 
  - Android: Contiene la información para compilar y ejecutar en Android.
  - iOS: Contiene la información para compilar y ejecutar en iOS.
@@ -45,7 +45,7 @@ Para correr la aplicación en nuestro emulador nos colocamos dentro de la carpet
 
 <img style="display: block;
     margin-left: auto;
-    margin-right: auto;" src="eppisapia.github.io/pas-restaurant-react-native/Images/Primera_Vista.png">
+    margin-right: auto;" src="../Images/Primera_Vista.png">
 
 Habilitamos la opción para "Hot Reloading" para editar los archivos y ver los cambios que se producen, nos dirigimos al dispositivo y procedemos a presionar ⌘+D (iOS) o la tecla de Menú del dispositivo (Android).
 
